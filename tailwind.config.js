@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+const withMT = require("@material-tailwind/html/utils/withMT");
+
+module.exports = withMT({
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'workSans': 'Work Sans, sans-serif',
+      },
+    },
   },
   plugins: [],
-}
-
+});
