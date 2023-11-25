@@ -1,10 +1,34 @@
 import { useState } from "react";
 import { FaAlignJustify, FaTimes } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../Navbar/Navbar.css";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {user, logOut} = useAuth();
+  const navigate = useNavigate();
+
+
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You are Successfully Logged out",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        navigate('/')
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   const navbar = (
     <>
@@ -22,7 +46,7 @@ const Navbar = () => {
     </>
   );
 
-  const rightButton = (
+  const loginButton = (
     <>
       <Link to='login'>
         <button
@@ -31,6 +55,21 @@ const Navbar = () => {
           data-ripple-light="true"
         >
           <span>Login</span>
+        </button>
+      </Link>
+    </>
+  );
+  
+  const logOutButton = (
+    <>
+      <Link to='login'>
+        <button
+        onClick={handleLogOut}
+          className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+          type="button"
+          data-ripple-light="true"
+        >
+          <span>Logout</span>
         </button>
       </Link>
     </>
@@ -55,8 +94,19 @@ const Navbar = () => {
             {/* Horizontal Navbar */}
             <ul className="hidden items-center gap-6 lg:flex">{navbar}</ul>
 
-            {/* right button */}
-            {rightButton}
+            
+
+            {
+              user? <>
+              <div className="flex flex-row gap-2 items-center">
+                <span>{user.displayName}</span>
+                <span>{logOutButton}</span>
+              </div>
+              </>
+              :
+              // Right Button (Login Button)
+              loginButton
+            }
 
             <button
               onClick={() => setIsOpen(!isOpen)}
