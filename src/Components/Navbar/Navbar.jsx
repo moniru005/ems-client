@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const navbar = (
     <>
-      <div className="text-md font-workSans flex gap-6">
+      <div className="text-md font-workSans flex flex-col lg:flex-row gap-2">
         <li>
           <NavLink to="/">Home</NavLink>
         </li>
@@ -25,7 +25,7 @@ const Navbar = () => {
   const rightButton = (
     <>
       <button
-        className="middle none center hidden rounded-lg bg-gradient-to-tr from-pink-600 to-pink-400 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+        className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
         type="button"
         data-ripple-light="true"
       >
@@ -79,7 +79,7 @@ const Navbar = () => {
               {navbar}
 
               <button
-                className="middle none center rounded-lg bg-gradient-to-tr from-pink-600 to-pink-400 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+                className="middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 mt-10 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
                 type="button"
                 data-ripple-light="true"
               >

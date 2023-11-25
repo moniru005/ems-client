@@ -36,6 +36,7 @@ import Navbar from "../Components/Navbar/Navbar";
         element:<Register></Register>
     },
     {
+        //TODO: private route
         path: '/dashboard',
         element:<>
         <Navbar></Navbar>
