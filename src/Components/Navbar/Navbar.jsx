@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaAlignJustify, FaTimes } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-import  '../Navbar/Navbar.css'
+import { Link, NavLink } from "react-router-dom";
+import "../Navbar/Navbar.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,13 +24,15 @@ const Navbar = () => {
 
   const rightButton = (
     <>
-      <button
-        className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
-        type="button"
-        data-ripple-light="true"
-      >
-        <span>Login</span>
-      </button>
+      <Link to='login'>
+        <button
+          className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+          type="button"
+          data-ripple-light="true"
+        >
+          <span>Login</span>
+        </button>
+      </Link>
     </>
   );
 
@@ -78,13 +80,15 @@ const Navbar = () => {
             >
               {navbar}
 
-              <button
-                className="middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 mt-10 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
-                type="button"
-                data-ripple-light="true"
-              >
-                <span>Login</span>
-              </button>
+              <Link to="/login">
+                <button
+                  className="middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 mt-10 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+                  type="button"
+                  data-ripple-light="true"
+                >
+                  <span>Login</span>
+                </button>
+              </Link>
             </ul>
           </div>
         </div>
