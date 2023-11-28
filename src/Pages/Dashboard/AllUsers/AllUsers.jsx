@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import "../AllUsers/AllUsers.css";
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 // import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
@@ -10,8 +10,9 @@ import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
-import useSalary from "../../../Hooks/useSalary";
 import { useEffect, useState } from "react";
+import { RiAdminFill } from "react-icons/ri";
+
 
 const AllUsers = () => {
   //   const { removeUser } = useAuth();
@@ -56,7 +57,7 @@ const AllUsers = () => {
   const handleMakeAdmin = (user) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You want to change your Role Admin now? ",
+      text: "You want to change your Role to Admin now? ",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -65,6 +66,35 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `${user.name} is an Admin Now!`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      }
+    });
+  };
+
+  // Make HR
+  const handleMakeHR = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to change your Role to HR now? ",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I Want!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/hr/${user._id}`).then((res) => {
           console.log(res.data);
           if (res.data.modifiedCount > 0) {
             refetch();
@@ -110,6 +140,35 @@ const AllUsers = () => {
     });
   };
 
+  // Make Fired
+  const handleFired = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to Fire Him/Her? ",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I Want!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/fired/${user._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            refetch();
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `${user.name} is Fired Now!`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      }
+    });
+  };
+
   // User Delete
   const handleDeleteUser = (user) => {
     Swal.fire({
@@ -137,6 +196,8 @@ const AllUsers = () => {
     });
   };
 
+
+
   return (
     <div className="border-2  font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -156,11 +217,13 @@ const AllUsers = () => {
                 Photo
               </th>
               <th className="w-56">Name</th>
-              <th className="">Email</th>
+              <th className={`${!isAdmin ? "hidden" : ""}`}>Email</th>
+              <th className={`${!isHR ? "hidden" : ""}`}>Designation</th>
               <th className={`${!isAdmin ? "hidden" : ""}`}>Bank A/C</th>
               <th className="">Salary</th>
-              <th className="">Verify</th>
-              <th className={`${!isHR ? "hidden" : ""}`}>Role</th>
+              <th className={`${!isAdmin ? "hidden" : ""}`}>Verify</th>
+              <th className={`${!isHR ? "hidden" : ""}`}>Make Admin</th>
+              <th className={`${!isHR ? "hidden" : ""}`}>Make HR</th>
               <th className="">Action</th>
             </tr>
           </thead>
@@ -178,12 +241,15 @@ const AllUsers = () => {
                   <img src={user.image} alt="" />{" "}
                 </td>
                 <td className="border w-56">{user.name}</td>
-                <td className="border ">{user.email}</td>
+                <td className={`border ${!isAdmin ? "hidden" : ""}`}>{user.email}</td>
+                <td className={`border ${!isHR ? "hidden" : ""}`}>{user.designation}</td>
                 <td className={`border ${!isAdmin ? "hidden" : ""}`}>
                   {user.bankAccount}
                 </td>
                 <td className="border ">{user.salary}</td>
-                <td className={`border uppercase`}>
+
+                {/* Make Verified */}
+                <td className={`border uppercase ${!isAdmin ? "hidden" : ""}`}>
                   {user.status === "verified" ? (
                     <p className="flex justify-center items-center">
                       <FaCheck className="text-2xl font-bold text-green-600 " />
@@ -197,17 +263,35 @@ const AllUsers = () => {
                     </button>
                   )}
                 </td>
+
+                {/* Make Admin */}
                 <td
-                  className={`ADMIN border uppercase ${!isHR ? "hidden" : ""} `}
+                  className={` border uppercase ${!isHR ? "hidden" : ""} `}
                 >
                   {user.role === "admin" ? (
                     "Admin"
                   ) : (
                     <button
                       onClick={() => handleMakeAdmin(user)}
-                      className="bg-yellow-500 p-2 rounded"
+                      className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg hover:shadow-blue-500/70 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block">
+
+                      <RiAdminFill className="text-xl"></RiAdminFill>
+                    </button>
+                  )}
+                </td>
+
+                {/* Make HR */}
+                <td
+                  className={`border uppercase ${!isHR ? "hidden" : ""} `}
+                >
+                  {user.role === "hr" ? (
+                    "HR"
+                  ) : (
+                    <button
+                      onClick={() => handleMakeHR(user)}
+                      className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg hover:shadow-blue-500/70 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
                     >
-                      <FaUsers className="text-white"></FaUsers>
+                      HR
                     </button>
                   )}
                 </td>
@@ -224,6 +308,7 @@ const AllUsers = () => {
                     <FaTrashAlt className="text-white"></FaTrashAlt>
                   </button>
                 </td>
+
                 {/* Pay Button */}
                 <td className={`PAY border ${!isAdmin ? "hidden" : ""}`}>
                   {salary.status === "paid" ? (
@@ -253,8 +338,25 @@ const AllUsers = () => {
                     </>
                   )}
                 </td>
+
+                {/* Make Fired */}
+                <td className={`border uppercase `}>
+                  {user.status === "Fired" ? (
+                    <p className="font-semibold flex justify-center items-center text-red-600">
+                      Fired
+                    </p>
+                  ) : (
+                    <button
+                      onClick={() => handleFired(user)}
+                      className="btn btn-sm text-red-800"
+                    >
+                      Fire
+                    </button>
+                  )}
+                </td>
+
                 <Link to={`/dashboard/userDetails/${user._id}`}>
-                  <td className="border ">
+                  <td className={`border ${!isAdmin ? "hidden" : ""}`}>
                     <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gradient-to-tr from-[#0064A5] to-[#00C957] hover:text-white  ">
                       Details
                     </button>
