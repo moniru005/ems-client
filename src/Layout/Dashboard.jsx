@@ -1,8 +1,31 @@
 import { Helmet } from "react-helmet-async";
-import { NavLink, Outlet } from "react-router-dom";
-import '../Layout/Dashboard.css'
+import { Outlet } from "react-router-dom";
+import "../Layout/Dashboard.css";
+import useAdmin from "../Hooks/useAdmin";
+import AdminMenus from "../Pages/Dashboard/DasboardMenu/AdminMenus";
+import EmployeeMenu from "../Pages/Dashboard/DasboardMenu/EmployeeMenu";
+import HrMenus from "../Pages/Dashboard/DasboardMenu/HrMenus";
+import { RingLoader } from 'react-spinners';
+
 
 const Dashboard = () => {
+  const [isAdmin, isHR, isAdminAndHRLoading] = useAdmin();
+
+  let menuComponent;
+
+  if(isAdminAndHRLoading){
+    menuComponent = <RingLoader color="#36d7b7"/>;
+  }
+  else if(isAdmin){
+    menuComponent = <AdminMenus></AdminMenus>;
+  }
+  else if(isHR){
+    menuComponent = <HrMenus></HrMenus>;
+  }
+  else{
+    menuComponent = <EmployeeMenu></EmployeeMenu>;
+  }
+
   return (
     <div className="flex">
       <Helmet>
@@ -10,25 +33,11 @@ const Dashboard = () => {
       </Helmet>
 
       {/* Dashboard Sidebar */}
-      <div className="w-64 min-h-full bg-[#e7eff5]">
+      <div className="w-64 h-[500px] bg-[#e7eff5]">
         <div className="text-md font-workSans flex flex-col lg:flex-row gap-2 p-4">
           <ul className="sidebar flex flex-col gap-2 font-medium w-full">
-         
-            <NavLink to="/dashboard/adminHome">
-                <button className="w-full">Admin</button>
-            </NavLink>
-
-            <NavLink to="/dashboard/employeeHome">
-                <button className="w-full">Employee</button>
-            </NavLink>
-
-            <NavLink to="/dashboard/hrHome">
-                <button className="w-full">HR DEPT</button>
-            </NavLink>
-
-            <NavLink to="/dashboard/allUsers">
-                <button className="w-full">All Users</button>
-            </NavLink>
+           
+           { menuComponent }
 
           </ul>
         </div>

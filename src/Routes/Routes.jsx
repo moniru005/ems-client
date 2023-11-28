@@ -12,6 +12,9 @@ import EmployeeHome from "../Pages/Dashboard/EmployeeHome/EmployeeHome";
 import HrHome from "../Pages/Dashboard/HrHome/HrHome";
 import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
+import UserDetails from "../Pages/Dashboard/AllUsers/UserDetails";
+import AddEmployee from "../Pages/Dashboard/AddEmployee/AddEmployee";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +63,14 @@ export const router = createBrowserRouter([
             path: 'hrHome',
             element: <HrHome></HrHome>
         },
+        {
+            path: 'employeeList',
+            element: <EmployeeList></EmployeeList>
+        },
+        {
+            path: 'userDetails/:id',
+            element: <UserDetails></UserDetails>
+        },
 
         //Admin Routes
         {
@@ -69,6 +80,12 @@ export const router = createBrowserRouter([
         {
             path: 'allUsers',
             element: <AllUsers></AllUsers>
+        },
+
+        //Common Routes
+        {
+          path: 'addEmployee',
+          element: <AddEmployee></AddEmployee>
         },
     ]
   },

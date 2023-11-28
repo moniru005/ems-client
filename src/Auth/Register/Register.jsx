@@ -7,6 +7,7 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import useValidatePhone from "../../Hooks/useValidatePhone";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -14,14 +15,19 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const {validatePhoneNumber} = useValidatePhone();
   const {
     register,
     handleSubmit,
+    watch,
     reset,
     formState: { errors },
   } = useForm();
   const { createUser, updateUserProfile } = useAuth();
   const axiosPublic = useAxiosPublic();
+
+  const selectedValue = watch("role");
+  console.log(selectedValue);
 
   const onSubmit = async (data) => {
     //image upload to imgBB and then get an url
@@ -43,19 +49,24 @@ const Register = () => {
             name: data.name,
             email: data.email,
             image: res.data.data.display_url,
+            designation: data.designation,
+            bankAccount: data.bankAccount,
+            salary: data.salary,
             role: data.role,
           };
+
           console.log(userInfo);
+
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
-              reset();
               Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "User Created Successfully",
+                title: `${data.name} Successfully Registered`,
                 showConfirmButton: false,
                 timer: 1500,
               });
+              reset();
               navigate("/");
             }
           });
@@ -64,14 +75,13 @@ const Register = () => {
     }
   };
 
-
   return (
     <>
       <Helmet>
         <title>Signup | EMS</title>
       </Helmet>
       <div className=" my-4 flex flex-col justify-center items-center font-workSans">
-        <div className="w-96 rounded-lg bg-gradient-to-tr from-[#095a90] to-[#6eb6e5] p-6">
+        <div className=" rounded-lg bg-gradient-to-tr from-[#095a90] to-[#6eb6e5] p-6">
           <div className="mb-8">
             <h2 className="text-2xl text-center font-semibold text-white">
               Please Sign Up
@@ -83,24 +93,127 @@ const Register = () => {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col space-y-4 w-full"
             >
-              <input
-                {...register("name", { required: true, maxLength: 20 })}
-                className="p-2 rounded border border-[#00C957]"
-                type="text"
-                name="name"
-                placeholder="Name"
-              />
-              {errors.name && (
-                <span className="text-red-100">Your Full Name is Required</span>
-              )}
-              <input
-                {...register("email", { required: true })}
-                className="p-2 rounded border border-[#00C957]"
-                type="email"
-                name="email"
-                placeholder="Email"
-              />
+              {/* Name & Designation */}
+              <div
+                className={`flex ${selectedValue === "employee" && "gap-2"}`}
+              >
+                {/* Name */}
+                <div className="w-full ">
+                  {(selectedValue === "employee" ||
+                    selectedValue === "hr" ||
+                    selectedValue === "admin") && (
+                    <input
+                      {...register("name", { required: true, maxLength: 20 })}
+                      className="p-2 rounded border border-[#00C957] w-full"
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                    />
+                  )}
+                  {errors.name && (
+                    <span className="text-red-100">
+                      Your Full Name is Required
+                    </span>
+                  )}
+                </div>
+                {/* Designation */}
+                <div>
+                  {selectedValue === "employee" && (
+                    <input
+                      {...register("designation", {
+                        required: true,
+                        maxLength: 20,
+                      })}
+                      className="p-2 rounded border border-[#00C957]"
+                      type="text"
+                      placeholder="Designation"
+                    />
+                  )}
+                  {errors.name && (
+                    <span className="text-red-100">
+                      Your Designation is Required
+                    </span>
+                  )}
+                </div>
+              </div>
 
+              {/* Bank Account and Salary */}
+              <div
+                className={`${
+                  selectedValue === "employee" ? "flex" : "hidden"
+                } ${selectedValue === "employee" && "gap-2"}`}
+              >
+                {/* Bank Account */}
+                <div className={`w-3/5`}>
+                  {selectedValue === "employee" && (
+                    <input
+                      {...register("bankAccount", {
+                        required: true,
+                        maxLength: 20,
+                      })}
+                      className="p-2 rounded border border-[#00C957] w-full"
+                      type="text"
+                      placeholder="Bank Account"
+                    />
+                  )}
+                  {errors.name && (
+                    <span className="text-red-100">
+                      Your Bank Account is Required
+                    </span>
+                  )}
+                </div>
+                {/* Salary */}
+                <div className={`w-2/5`}>
+                  {selectedValue === "employee" && (
+                    <input
+                      {...register("salary", { required: true, maxLength: 20 })}
+                      className="p-2 rounded border border-[#00C957] w-full"
+                      type="text"
+                      placeholder="Salary"
+                    />
+                  )}
+                  {errors.name && (
+                    <span className="text-red-100">
+                      Your Salary is Required
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Phone Number */}
+              <div className={`w-full`}>
+                  {(selectedValue === "employee" ||
+                    selectedValue === "hr" ||
+                    selectedValue === "admin")
+                     && (
+                    <input
+                      {...register("phone", { validate: validatePhoneNumber })}
+                      className="p-2 rounded border border-[#00C957] w-full"
+                      type="text"
+                      placeholder="Phone"
+                    />
+                  )}
+                  {errors.phone && (<span className="text-red-200">
+                      {errors.phone.message}
+                    </span>
+                  )}
+                </div>
+
+              {/* Email */}
+              <div className="w-full">
+                <input
+                  {...register("email", { required: true })}
+                  className="p-2 rounded border border-[#00C957] w-full"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                />
+              </div>
+              {errors.email?.type === "required" && (
+                <span className="text-red-100">Your Email is required</span>
+              )}
+
+              {/* Password */}
               <div className="relative">
                 <input
                   {...register("password", {
@@ -121,48 +234,60 @@ const Register = () => {
                 >
                   {!showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
                 </span>
+                {/* Password Validation Message */}
+                <div className="w-96">
+                  {errors.password?.type === "required" && (
+                    <span className="text-red-100">
+                      Password field is required
+                    </span>
+                  )}
+                  {errors.password?.type === "minLength" && (
+                    <span className="text-red-100">
+                      Password must be 6 characters
+                    </span>
+                  )}
+                  {errors.password?.type === "maxLength" && (
+                    <span className="text-red-100">
+                      Password must be less than 20 characters
+                    </span>
+                  )}
+                  {errors.password?.type === "pattern" && (
+                    <span className="text-red-100">
+                      Password at least one uppercase, one lowercase, one number
+                      and one special character
+                    </span>
+                  )}
+                </div>
               </div>
-              {errors.password?.type === "required" && (
-                <span className="text-red-100">Password field is required</span>
-              )}
-              {errors.password?.type === "minLength" && (
-                <span className="text-red-100">
-                  Password must be 6 characters
-                </span>
-              )}
-              {errors.password?.type === "maxLength" && (
-                <span className="text-red-100">
-                  Password must be less than 20 characters
-                </span>
-              )}
-              {errors.password?.type === "pattern" && (
-                <span className="text-red-100">
-                  Password at least one uppercase, one lowercase, one number and
-                  one special character
-                </span>
-              )}
 
-              <select
-                defaultValue="default"
-                name="role"
-                {...register("role", { required: true })}
-                className="select select-bordered w-full p-2 rounded"
-              >
-                <option disabled value="default">
-                  Select Role
-                </option>
-                <option value="employee">Employee</option>
-                <option value="hr">HR</option>
-                <option value="admin">Admin</option>
-              </select>
+              <div className="w-full">
+                <select
+                id="role"
+                  defaultValue="default"
+                  {...register("role", { required: 'Please select your Role' })}
+                  className="select select-bordered w-full p-2 rounded"
+                >
+                  <option value="">
+                    Select Role
+                  </option>
+                  <option value="employee">Employee</option>
+                  <option value="hr">HR</option>
+                  <option value="admin">Admin</option>
+                </select>
+                {errors.role && (<span className="text-red-100">
+                  {errors.role.message}
+                  </span>
+                )}
+              </div>
 
               <label className="text-white">Choose a profile picture</label>
               <input
-                {...register("image", { required: true })}
+                {...register("image", { required: 'Please upload a file' })}
                 type="file"
-                className="file-input w-full my-6 file-input-bordered text-white"
+                id="fileInput"
+                className="file-input w-full my-6 file-input-bordered text-black"
               />
-
+              {errors.image && <p className="text-red-200">{errors.image.message}</p>}
               <input
                 className="p-2 border border-[#0064A5] bg-[#0063a5ac] hover:bg-[#0064A5] text-white rounded cursor-pointer text-lg font-semibold"
                 type="submit"

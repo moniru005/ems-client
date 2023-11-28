@@ -47,10 +47,9 @@ const AuthProviders = ({ children }) => {
     });
   };
 
-  const removeUser = () => {
-    setLoading(true);
+  const removeUser = () =>{
     return deleteUser(auth.currentUser);
-  };
+}
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
