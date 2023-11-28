@@ -9,17 +9,21 @@ import useAdmin from "../../../Hooks/useAdmin";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
+import Modal from "../Modal/Modal";
+import useSalary from "../../../Hooks/useSalary";
+import { useEffect, useState } from "react";
 
 const AllUsers = () => {
-//   const { removeUser } = useAuth();
+  //   const { removeUser } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const[isHR, isAdmin] = useAdmin();
-  console.log(isHR);
+  const [isHR, isAdmin] = useAdmin();
+  // console.log(isHR);
+  const [salary, setSalary] = useState("");
 
   const {
     data: users = [],
     // isLoading: loading,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -28,11 +32,27 @@ const AllUsers = () => {
     },
   });
 
-//   if(loading){
-//     return <progress className="progress w-56 flex justify-center items-center mx-auto"></progress>
-//   }
+  const {
+    data: salaries = [],
+    // isLoading: loading,
+  } = useQuery({
+    queryKey: ["salaries"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/salaries");
+      return res.data;
+    },
+  });
 
-// Make Admin
+  useEffect(() => {
+    salaries.map((salary) => setSalary(salary.status));
+  }, [salaries]);
+  console.log("Status: ", salary);
+
+  //   if(loading){
+  //     return <progress className="progress w-56 flex justify-center items-center mx-auto"></progress>
+  //   }
+
+  // Make Admin
   const handleMakeAdmin = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -61,8 +81,8 @@ const AllUsers = () => {
     });
   };
 
-// Make Verified
-const handleVerify = (user) => {
+  // Make Verified
+  const handleVerify = (user) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You want to Verify? ",
@@ -90,32 +110,31 @@ const handleVerify = (user) => {
     });
   };
 
-// User Delete   
+  // User Delete
   const handleDeleteUser = (user) => {
     Swal.fire({
-        title: `You want delete ${user.name}?`,
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-            
-            axiosSecure.delete(`/users/${user._id}`).then((res) => {
-                console.log(res.data);
-                if (res.data.deletedCount > 0) {
-                  Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success",
-                  });
-                  refetch();
-                }
-              });
-        }
-      });
+      title: `You want delete ${user.name}?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/users/${user._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -128,57 +147,76 @@ const handleVerify = (user) => {
         <table id="" className="table-auto w-full">
           <thead>
             <tr className="user-heading font-medium">
-              <th className={`${!isHR? 'hidden': ''}`}>SL</th>
-              <th className={`${!isHR? 'hidden': ''} ${!isAdmin? 'hidden': ''} `}>Photo</th>
+              <th className={`${!isHR ? "hidden" : ""}`}>SL</th>
+              <th
+                className={`${!isHR ? "hidden" : ""} ${
+                  !isAdmin ? "hidden" : ""
+                } `}
+              >
+                Photo
+              </th>
               <th className="w-56">Name</th>
               <th className="">Email</th>
-              <th className={`${!isAdmin? 'hidden': ''}`}>Bank A/C</th>
+              <th className={`${!isAdmin ? "hidden" : ""}`}>Bank A/C</th>
               <th className="">Salary</th>
               <th className="">Verify</th>
-              <th className={`${!isHR? 'hidden': ''}`}>Role</th>
+              <th className={`${!isHR ? "hidden" : ""}`}>Role</th>
               <th className="">Action</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
               <tr key={user._id} className="user-body text-center">
-                <td className={`border ${!isHR? 'hidden': ''} `}>{index + 1}</td>
-                <td className={`border  w-24 h-24 ${!isHR? 'hidden': ''} ${!isAdmin? 'hidden': ''}`}>
+                <td className={`border ${!isHR ? "hidden" : ""} `}>
+                  {index + 1}
+                </td>
+                <td
+                  className={`border  w-24 h-24 ${!isHR ? "hidden" : ""} ${
+                    !isAdmin ? "hidden" : ""
+                  }`}
+                >
                   <img src={user.image} alt="" />{" "}
                 </td>
                 <td className="border w-56">{user.name}</td>
                 <td className="border ">{user.email}</td>
-                <td className={`border ${!isAdmin? 'hidden': ''}`}>{user.bankAccount}</td>
+                <td className={`border ${!isAdmin ? "hidden" : ""}`}>
+                  {user.bankAccount}
+                </td>
                 <td className="border ">{user.salary}</td>
                 <td className={`border uppercase`}>
-                  {
-                  user.status === "verified" ? 
-                   <p className="flex justify-center items-center">
-                    <FaCheck className="text-2xl font-bold text-green-600 "/>
-                   </p>
-                  : 
+                  {user.status === "verified" ? (
+                    <p className="flex justify-center items-center">
+                      <FaCheck className="text-2xl font-bold text-green-600 " />
+                    </p>
+                  ) : (
                     <button
                       onClick={() => handleVerify(user)}
-                      className="btn btn-sm">
-                       <RxCross2 className="text-2xl font-bold text-red-400 " />
+                      className="btn btn-sm"
+                    >
+                      <RxCross2 className="text-2xl font-bold text-red-400 " />
                     </button>
-                  }
+                  )}
                 </td>
-                <td className={`ADMIN border uppercase ${!isHR? 'hidden': ''} `}>
-                  {
-                  user.role === "admin" ? 
-                   "Admin"
-                  : 
+                <td
+                  className={`ADMIN border uppercase ${!isHR ? "hidden" : ""} `}
+                >
+                  {user.role === "admin" ? (
+                    "Admin"
+                  ) : (
                     <button
                       onClick={() => handleMakeAdmin(user)}
                       className="bg-yellow-500 p-2 rounded"
                     >
                       <FaUsers className="text-white"></FaUsers>
                     </button>
-                  }
+                  )}
                 </td>
-                
-                <td className={`border ${!isHR? 'hidden': ''} ${!isAdmin? 'hidden': ''}`}>
+
+                <td
+                  className={`border ${!isHR ? "hidden" : ""} ${
+                    !isAdmin ? "hidden" : ""
+                  }`}
+                >
                   <button
                     onClick={() => handleDeleteUser(user)}
                     className="bg-red-600 p-2 rounded"
@@ -186,31 +224,41 @@ const handleVerify = (user) => {
                     <FaTrashAlt className="text-white"></FaTrashAlt>
                   </button>
                 </td>
-                
-
-                <td className={`PAY border ${!isAdmin? 'hidden': ''}`}>
-                <Link to="">
-                    {
-                    user.status === "verified" ? 
+                {/* Pay Button */}
+                <td className={`PAY border ${!isAdmin ? "hidden" : ""}`}>
+                  {salary.status === "paid" ? (
+                    <p>Paid</p>
+                  ) : (
+                    <>
+                      {user.status === "verified" ? (
+                        <>
+                          <button
+                            onClick={() =>
+                              document.getElementById("pay_modal").showModal()
+                            }
+                            className={`middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 text-sm uppercase text-white lg:inline-block font-workSans`}
+                          >
+                            <span>Pay</span>
+                          </button>
+                          <Modal salary={user.salary} name={user.name}></Modal>
+                        </>
+                      ) : (
                         <button
-                        className={`middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 text-sm uppercase text-white lg:inline-block font-workSans`}
+                          disabled={true}
+                          className={`middle none center rounded-lg bg-gray-400 py-2 px-4 text-sm lg:inline-block font-workSans`}
                         >
-                        <span>Pay</span>
+                          <span>Pay</span>
                         </button>
-                     : 
-                        <button
-                        disabled={true}
-                        className={`middle none center rounded-lg bg-gray-400 py-2 px-4 text-sm lg:inline-block font-workSans`}
-                        >
-                        <span>Pay</span>
-                        </button>
-                    }
-                </Link>
+                      )}
+                    </>
+                  )}
                 </td>
                 <Link to={`/dashboard/userDetails/${user._id}`}>
-                <td className="border ">
-                    <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gradient-to-tr from-[#0064A5] to-[#00C957] hover:text-white  ">Details</button>
-                </td>
+                  <td className="border ">
+                    <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gradient-to-tr from-[#0064A5] to-[#00C957] hover:text-white  ">
+                      Details
+                    </button>
+                  </td>
                 </Link>
               </tr>
             ))}

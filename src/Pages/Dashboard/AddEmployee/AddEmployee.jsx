@@ -275,7 +275,7 @@ const AddEmployee = () => {
                 >
                   <option value="">Select Role</option>
                   <option value="employee">Employee</option>
-                  <option disabled value="hr">HR</option>
+                  <option value="hr">HR</option>
                   <option disabled value="admin">Admin</option>
                 </select>
                 {errors.role && (

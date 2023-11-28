@@ -9,15 +9,23 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Navigation } from "swiper/modules";
 import Title from "../../../Components/Title/Title";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    fetch("/public/reviews.json")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/public/reviews.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setReviews(data));
+  // }, []);
+
+  axiosPublic.get('/reviews')
+  .then(res =>{
+    setReviews(res.data);
+  })
+  
 
   return (
     <section className="my-20 bg-[url(' ')]">

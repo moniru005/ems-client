@@ -15,6 +15,9 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
 import UserDetails from "../Pages/Dashboard/AllUsers/UserDetails";
 import AddEmployee from "../Pages/Dashboard/AddEmployee/AddEmployee";
+import EmployeeTask from "../Pages/Dashboard/EmployeeTask/EmployeeTask";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
+import EmployeeWorkSheet from "../Pages/Dashboard/EmployeeTask/EmployeeWorkSheet";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +74,10 @@ export const router = createBrowserRouter([
             path: 'userDetails/:id',
             element: <UserDetails></UserDetails>
         },
+        {
+            path: 'paymentHistory',
+            element: <PaymentHistory></PaymentHistory>
+        },
 
         //Admin Routes
         {
@@ -86,6 +93,14 @@ export const router = createBrowserRouter([
         {
           path: 'addEmployee',
           element: <AddEmployee></AddEmployee>
+        },
+        // {
+        //   path: 'employeeTask',
+        //   element: <EmployeeTask></EmployeeTask>
+        // },
+        {
+          path: 'employeeWorkSheet',
+          element: <EmployeeWorkSheet></EmployeeWorkSheet>
         },
     ]
   },

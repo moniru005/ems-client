@@ -16,6 +16,9 @@ const HrMenus = () => {
       <NavLink to="/dashboard/allUsers">
         <button className="w-full">Employee List</button>
       </NavLink>
+      <NavLink to="/dashboard/paymentHistory">
+        <button className="w-full">Payment History</button>
+      </NavLink>
     </>
   );
 };
