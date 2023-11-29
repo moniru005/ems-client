@@ -92,7 +92,7 @@ const UpdateEmployee = () => {
   };
 
   return (
-    <div className="w-[900px;]">
+    <div className="w-full">
       <Helmet>
         <title>Update Employee | EMS</title>
       </Helmet>

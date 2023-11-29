@@ -8,14 +8,15 @@ import useAdmin from "../../../Hooks/useAdmin";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
-import { useEffect, useState } from "react";
 import { RiAdminFill } from "react-icons/ri";
+import Loading from "../../../Components/Loading/Loading";
+import { useState } from "react";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [isHR, isAdmin] = useAdmin();
+  const [searchQuery, setSearchQuery] = useState("");
   // console.log(isHR);
-  const [salary, setSalary] = useState("");
 
   // get users from user api
   const {
@@ -30,12 +31,27 @@ const AllUsers = () => {
     },
   });
 
+//search users
+const filteredUsers = users.filter((user) => {
+  const query = searchQuery.toLowerCase();
+  const userName = user.name.toLowerCase();
+  const userEmail = user.email;
+  const userDesignation = user?.designation?.toLowerCase();
+  const userSalary = user.salary;
+  const userRole = user?.role?.toLowerCase();
+
+
+  return userName.includes(query) ||
+   userEmail?.includes(query) ||
+   userDesignation?.includes(query) ||
+   userSalary?.includes(query) ||
+   userRole?.includes(query);
+  // && (selectedDate === "" || taskDate === selectedDate);
+});
 
 
   if (loading) {
-    return (
-      <progress className="progress w-56 flex justify-center items-center mx-auto"></progress>
-    );
+    return <Loading></Loading>
   }
 
   // Make Admin
@@ -184,9 +200,17 @@ const AllUsers = () => {
   return (
     <div className="border-2  font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between font-medium text-xl ">
-          <h2 className=" mb-4">All Employees</h2>
-          <h2>Total Employees: {users.length}</h2>
+        <div className="flex items-center font-medium mb-4">
+          <h2 className=" text-xl ">All Employees ({users.length})</h2>
+          <div className=" lg:ml-8 flex gap-4">
+            <input
+              className="p-2 border border-[#8e8e8e] font-workSans font-medium rounded-lg"
+              type="text"
+              placeholder="Search any key"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
           <h2></h2>
         </div>
         <table className="table w-full">
@@ -206,13 +230,12 @@ const AllUsers = () => {
               <th className={`border ${!isAdmin ? "hidden" : ""}`}>Bank A/C</th>
               <th className="border">Salary</th>
               <th className={`border ${!isAdmin ? "hidden" : ""}`}>Verify</th>
-              <th className={`border ${!isHR ? "hidden" : ""}`}>Make Admin</th>
-              <th className={`border ${!isHR ? "hidden" : ""}`}>Make HR</th>
+              <th className={`border ${!isHR ? "hidden" : ""}`}>Make Ad/HR</th>
               <th className="border">Action</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {filteredUsers.map((user, index) => (
               <tr key={user._id} className="user-body text-center">
                 <td className={`border ${!isHR ? "hidden" : ""} `}>
                   {index + 1}
@@ -252,8 +275,10 @@ const AllUsers = () => {
                   )}
                 </td>
 
-                {/* Make Admin */}
-                <td className={` border uppercase ${!isHR ? "hidden" : ""} `}>
+                {/* Make Admin & HR*/}
+                <td className={` border uppercase ${!isHR ? "hidden" : ""} flex flex-col gap-2`}>
+                  {/* Make Admin */}
+                  <div>
                   {user.role === "admin" ? (
                     "Admin"
                   ) : (
@@ -264,20 +289,20 @@ const AllUsers = () => {
                       <RiAdminFill className="text-xl"></RiAdminFill>
                     </button>
                   )}
-                </td>
-
-                {/* Make HR */}
-                <td className={`border uppercase ${!isHR ? "hidden" : ""} `}>
+                  </div>
+                  {/* Make HR */}
+                  <div>
                   {user.role === "hr" ? (
-                    "HR"
-                  ) : (
-                    <button
-                      onClick={() => handleMakeHR(user)}
-                      className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg hover:shadow-blue-500/70 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
-                    >
-                      HR
-                    </button>
-                  )}
+                  "HR"
+                ) : (
+                  <button
+                    onClick={() => handleMakeHR(user)}
+                    className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg hover:shadow-blue-500/70 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+                  >
+                    HR
+                  </button>
+                )}
+                  </div>
                 </td>
 
                 {/* Delete User */}
@@ -365,6 +390,7 @@ const AllUsers = () => {
                     </button>
                   </Link>
                 </td>
+
               </tr>
             ))}
           </tbody>

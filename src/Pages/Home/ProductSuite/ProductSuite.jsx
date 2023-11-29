@@ -2,7 +2,7 @@ import Title from "../../../Components/Title/Title";
 
 const ProductSuite = () => {
   return (
-    <div className="pb-16 font-workSans  bg-gradient-to-r from-white to-green-100 ">
+    <div className="pb-16 font-workSans">
       <div className="">
         <Title
           heading="Join an Attractive & Employee Management Service"

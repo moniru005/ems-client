@@ -33,18 +33,16 @@ const Dashboard = () => {
       </Helmet>
 
       {/* Dashboard Sidebar */}
-      <div className="w-64 h-[500px] bg-[#e7eff5]">
+      <div className="w-3/12">
         <div className="text-md font-workSans flex flex-col lg:flex-row gap-2 p-4">
           <ul className="sidebar flex flex-col gap-2 font-medium w-full">
-           
            { menuComponent }
-
           </ul>
         </div>
       </div>
 
       {/* Dashboard Contents */}
-      <div className="flex p-4">
+      <div className="w-9/12 flex p-4 bg-white">
         <Outlet></Outlet>
       </div>
     </div>

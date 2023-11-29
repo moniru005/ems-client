@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <div className="max-w-[1200px] mx-auto">
+    <div className="max-w-[1200px] mx-auto bg-gradient-to-tr from-[#f7f8f8] to-[#ffffff]">
       <HelmetProvider>
         <AuthProviders>
           <QueryClientProvider client={queryClient}>

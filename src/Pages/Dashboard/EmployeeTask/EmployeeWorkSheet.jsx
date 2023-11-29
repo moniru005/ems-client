@@ -37,7 +37,7 @@ const EmployeeWorkSheet = () => {
   };
 
   return (
-    <div className="w-[900px;]">
+    <div className="w-full">
       <Helmet>
         <title>Employee Task | EMS</title>
       </Helmet>

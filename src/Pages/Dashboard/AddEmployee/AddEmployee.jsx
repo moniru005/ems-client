@@ -77,12 +77,12 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="w-[900px;]">
+    <div className="w-full">
       <Helmet>
         <title>Add Employee | EMS</title>
       </Helmet>
       <div className=" mb-4 flex flex-col lg:flex-row justify-center items-center font-workSans w-full">
-        <div className=" rounded-lg bg-[#e7eff5] p-6">
+        <div className=" rounded-lg p-6">
           <div className="mb-8">
             <h2 className="text-2xl text-center font-semibold text-balck">
               Add Employee

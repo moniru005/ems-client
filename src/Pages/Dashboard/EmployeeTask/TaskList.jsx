@@ -8,7 +8,7 @@ import useAdmin from "../../../Hooks/useAdmin";
 
 
 
-const TaskList = ({filteredTasks, refetch}) => {
+const TaskList = ({filteredTasks, refetch, searchQuery, setSearchQuery}) => {
 //   const { removeUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const[isHR] = useAdmin();
@@ -51,8 +51,24 @@ const handleDeleteTask = (task) => {
   return (
     <div className="font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:w-[900px]">
-        <div className="flex justify-between font-medium text-xl ">
-          <h2 className=" mb-4">All Task List: ({filteredTasks.length})</h2>
+        <div className="flex items-center font-medium mb-6">
+          <h2 className="text-xl">All Task List: ({filteredTasks.length})</h2>
+          <div className=" lg:ml-8 flex gap-4">
+            <input
+              className="p-2 border border-[#8e8e8e] font-workSans font-medium rounded-lg"
+              type="text"
+              placeholder="Search any key"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+
+            {/* <input
+            className="p-2 border border-[#0064A5]"
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            /> */}
+          </div>
         </div>
         <table id="" className="table-auto w-full border">
           <thead className="border">

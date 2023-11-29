@@ -4,41 +4,39 @@ import { FaQuoteLeft } from "react-icons/fa";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import { useEffect, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Navigation } from "swiper/modules";
-import Title from "../../../Components/Title/Title";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../Components/Loading/Loading";
 
 const Testimonials = () => {
-  const [reviews, setReviews] = useState([]);
   const axiosPublic = useAxiosPublic();
 
-  // useEffect(() => {
-  //   fetch("/public/reviews.json")
-  //     .then((res) => res.json())
-  //     .then((data) => setReviews(data));
-  // }, []);
 
-  axiosPublic.get('/reviews')
-  .then(res =>{
-    setReviews(res.data);
-  })
-  
+   const {data: reviews = [], isLoading:loading} = useQuery({
+    queryKey: ['reviews'],
+    queryFn: async() =>{
+      const res = await axiosPublic.get('/reviews');
+      return res.data;
+    }
+   })
+
+  if(loading){
+    <Loading></Loading>
+  }
 
   return (
-    <section className="my-20 bg-[url(' ')]">
-      
-        <Title heading="Client Testimonials"></Title>
-      
+    <section className="mt-20 flex flex-col mx-auto  ">
+      <h2 className="lg:text-4xl text-xl font-semibold text-[#0064A5] mb-6 text-center pt-4">Testimonials</h2>
 
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper  w-[80%]">
         {reviews.map((review) => (
           <SwiperSlide key={review._id}>
             <div className="flex flex-col items-center mx-24 my-16">
               <Rating
-                style={{ maxWidth: 180}}
+                style={{ maxWidth: 180 }}
                 value={review.rating}
                 readOnly
               />

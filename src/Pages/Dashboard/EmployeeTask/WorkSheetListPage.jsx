@@ -35,24 +35,14 @@ const WorkSheetListPage = () => {
 
   return (
     <div>
-      <div className="mt-6 lg:ml-8 flex gap-4">
-        <input
-          className="p-2 border border-[#0064A5] font-workSans font-medium rounded"
-          type="text"
-          placeholder="Search any key"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+      <TaskList 
+      filteredTasks={filteredTasks} 
+      refetch={refetch}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      >
 
-        {/* <input
-        className="p-2 border border-[#0064A5]"
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        /> */}
-      </div>
-
-      <TaskList filteredTasks={filteredTasks} refetch={refetch}></TaskList>
+      </TaskList>
     </div>
   );
 };
