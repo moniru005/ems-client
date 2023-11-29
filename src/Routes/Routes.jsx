@@ -22,6 +22,7 @@ import PaymentPage from "../Pages/Dashboard/Payment/PaymentPage/PaymentPage";
 import TaskList from "../Pages/Dashboard/EmployeeTask/TaskList";
 import WorkSheetListPage from "../Pages/Dashboard/EmployeeTask/WorkSheetListPage";
 import UpdateEmployee from "../Pages/Dashboard/AddEmployee/UpdateEmployee";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ export const router = createBrowserRouter([
         //employee / normal user routes
         {
             path: 'employeeHome',
-            element: <EmployeeHome></EmployeeHome>
+            element: <PrivateRoute><EmployeeHome></EmployeeHome></PrivateRoute>
         },
         {
             path: 'paymentPage/:id',
@@ -72,11 +73,11 @@ export const router = createBrowserRouter([
         //HR Routes
         {
             path: 'hrHome',
-            element: <HrHome></HrHome>
+            element: <PrivateRoute><HrHome></HrHome></PrivateRoute>
         },
         {
             path: 'employeeList',
-            element: <EmployeeList></EmployeeList>
+            element: <PrivateRoute><EmployeeList></EmployeeList></PrivateRoute>
         },
         {
             path: 'userDetails/:id',
@@ -92,22 +93,21 @@ export const router = createBrowserRouter([
         },
         {
           path: 'addEmployee',
-          element: <AddEmployee></AddEmployee>
+          element: <PrivateRoute><AddEmployee></AddEmployee></PrivateRoute>
         },
         {
           path: 'updateEmployee/:id',
-          element: <UpdateEmployee></UpdateEmployee>
+          element: <PrivateRoute><UpdateEmployee></UpdateEmployee></PrivateRoute>
         },
 
         //Admin Routes
         {
             path: 'adminHome',
-            element: <AdminHome></AdminHome>
+            element: <PrivateRoute><AdminHome></AdminHome></PrivateRoute>
         },
         {
             path: 'allUsers',
-            element: <AllUsers></AllUsers>,
-            loader: () => fetch('http://localhost:5000/usersCount')
+            element: <PrivateRoute><AllUsers></AllUsers></PrivateRoute>
         },
 
         //Common Routes
