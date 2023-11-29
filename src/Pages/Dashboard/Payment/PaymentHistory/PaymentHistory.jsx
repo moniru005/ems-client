@@ -1,33 +1,21 @@
-import useAdmin from "../../../../Hooks/useAdmin";
+import { useState } from "react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import Swal from "sweetalert2";
+import Loading from "../../../../Components/Loading/Loading";
 
 
 
 const PaymentHistory = () => {
   //   const { removeUser } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
   const axiosSecure = useAxiosSecure();
-  const [isHR, isAdmin] = useAdmin();
   // console.log(isHR);
 
-  //fetch from users api
-  const {
-    data: users = [],
-    // isLoading: loading,
-  } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/users");
-      return res.data;
-    },
-  });
 
   //fetch from salaries api
   const {
     data: salaries = [],
-    // isLoading: loading,
-    refetch,
+    isLoading: loading,
   } = useQuery({
     queryKey: ["salaries"],
     queryFn: async () => {
@@ -36,13 +24,36 @@ const PaymentHistory = () => {
     },
   });
 
+  //Search Transaction
+  const filteredData = salaries.filter((salary) => {
+    const query = searchQuery.toLowerCase();
+    const salaryMonth = salary.month.toLowerCase();
+    const userSalary = salary.salary;
+    const paymentTransactionId = salary?.transactionId?.toLowerCase();
 
+    return salaryMonth.includes(query) ||
+    userSalary?.includes(query) ||
+    paymentTransactionId?.includes(query);
+  });
+
+  if(loading){
+    <Loading></Loading>
+  }
 
   return (
     <div className="border-2  font-workSans w-[900px]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-center font-medium text-xl mb-4 ">
-          <h2 className=" mb-4 text-center">All Transaction</h2>
+        <div className="flex items-center font-medium mb-4 ">
+          <h2 className="text-center text-xl ">All Transaction ({filteredData.length})</h2>
+          <div className=" lg:ml-8 flex gap-4">
+            <input
+              className="p-2 border border-[#8e8e8e] font-workSans font-medium rounded-lg"
+              type="text"
+              placeholder="Search any key"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
         <table id="" className="table-auto w-full border">
           <thead className="border">
@@ -54,7 +65,7 @@ const PaymentHistory = () => {
           </thead>
           <tbody className="text-center border">
             {
-              salaries.map(salary=> <tr key={salary._id}>
+              filteredData.map(salary=> <tr key={salary._id}>
                 <td className="border">{salary.month}</td>
                 <td className="border">{salary.salary}</td>
                 <td className="border">{salary.transactionId}</td>
