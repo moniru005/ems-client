@@ -82,7 +82,7 @@ const Navbar = () => {
           <div className="container mx-auto flex items-center justify-between text-gray-900">
             {/* Logo */}
             <div className="flex flex-col justify-center items-center">
-              <img className="w-12" src="/public/logo-1.png" alt="" />
+              <img className="w-12" src="https://i.ibb.co/nQKqY9Z/logo-1.png" alt="" />
               <a
                 href="#"
                 className="mr-4 block cursor-pointer py-1.5 font-sans text-sm font-normal leading-normal text-inherit antialiased"

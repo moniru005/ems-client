@@ -7,11 +7,13 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useValidatePhone from "../../../Hooks/useValidatePhone";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddEmployee = () => {
+  const [isAdmin] = useAdmin();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { validatePhoneNumber } = useValidatePhone();
@@ -276,7 +278,7 @@ const AddEmployee = () => {
                   <option value="">Select Role</option>
                   <option value="employee">Employee</option>
                   <option value="hr">HR</option>
-                  <option disabled value="admin">Admin</option>
+                  {isAdmin? <option value="admin">Admin</option>: ''}
                 </select>
                 {errors.role && (
                   <span className="text-red-100">{errors.role.message}</span>

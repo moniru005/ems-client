@@ -34,9 +34,9 @@ const Dashboard = () => {
 
       {/* Dashboard Sidebar */}
       <div className="w-3/12">
-        <div className="text-md font-workSans flex flex-col lg:flex-row gap-2 p-4">
-          <ul className="sidebar flex flex-col gap-2 font-medium w-full">
-           { menuComponent }
+        <div className="text-md font-workSans flex flex-col lg:flex-row gap-2 p-4 ">
+          <ul className="sidebar flex flex-col gap-2 font-medium w-full ">
+            { menuComponent }
           </ul>
         </div>
       </div>

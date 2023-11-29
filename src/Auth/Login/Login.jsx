@@ -68,14 +68,14 @@ const Login = () => {
               className="flex flex-col space-y-8 w-full"
             >
               <input
-                className="p-4 rounded border border-[#00C957]"
+                className="p-4 rounded-lg border border-[#00C957] "
                 type="email"
                 name="email"
                 placeholder="Email"
               />
               <div className="relative">
                 <input
-                  className="p-4 rounded border border-[#00C957] w-full"
+                  className="p-4 rounded-lg border border-[#00C957] w-full"
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
@@ -90,7 +90,7 @@ const Login = () => {
               {error && <p className="text-red-100">{error}</p>}
 
               <input
-                className="p-4 border border-[#0064A5] bg-[#0063a5ac] hover:bg-[#0064A5] text-white rounded cursor-pointer text-lg font-semibold"
+                className="p-4 border border-[#0064A5] bg-[#0063a5ac] hover:bg-[#0064A5] text-white rounded-lg shadow-black shadow-xl hover:shadow-md cursor-pointer text-lg font-semibold"
                 type="submit"
                 value="Submit"
               />

@@ -95,7 +95,7 @@ const Register = () => {
             >
               {/* Name & Designation */}
               <div
-                className={`flex ${selectedValue === "employee" && "gap-2"}`}
+                className={`flex flex-col ${selectedValue === "employee" && "gap-2"} `}
               >
                 {/* Name */}
                 <div className="w-full ">
@@ -117,14 +117,14 @@ const Register = () => {
                   )}
                 </div>
                 {/* Designation */}
-                <div>
+                <div className="w-full">
                   {selectedValue === "employee" && (
                     <input
                       {...register("designation", {
                         required: true,
                         maxLength: 20,
                       })}
-                      className="p-2 rounded border border-[#00C957]"
+                      className="p-2 rounded border border-[#00C957] w-full"
                       type="text"
                       placeholder="Designation"
                     />
@@ -272,7 +272,7 @@ const Register = () => {
                   </option>
                   <option value="employee">Employee</option>
                   <option value="hr">HR</option>
-                  <option value="admin">Admin</option>
+                  
                 </select>
                 {errors.role && (<span className="text-red-100">
                   {errors.role.message}
@@ -289,7 +289,7 @@ const Register = () => {
               />
               {errors.image && <p className="text-red-200">{errors.image.message}</p>}
               <input
-                className="p-2 border border-[#0064A5] bg-[#0063a5ac] hover:bg-[#0064A5] text-white rounded cursor-pointer text-lg font-semibold"
+                className="p-2 border border-[#0064A5] bg-[#0063a5ac] hover:bg-[#0064A5]  text-white rounded-lg shadow-black shadow-xl hover:shadow-md cursor-pointer text-lg font-semibold"
                 type="submit"
                 value="Submit"
               />
