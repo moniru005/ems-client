@@ -5,7 +5,7 @@ const useValidatePhone = () => {
       return "Phone Number is Required";
     } else if (!phoneNumberRegex.test(value)) {
       return "Must be only digits";
-    } else if (value.length < 10 || value.length === 11) {
+    } else if (value.length < 10) {
       return "Must be Enter 11 digits";
     }
   };

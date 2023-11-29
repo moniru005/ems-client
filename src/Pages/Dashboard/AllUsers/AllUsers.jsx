@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import "../AllUsers/AllUsers.css";
 import { FaTrashAlt } from "react-icons/fa";
 // import useAuth from "../../../Hooks/useAuth";
@@ -9,49 +8,35 @@ import useAdmin from "../../../Hooks/useAdmin";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
-import Modal from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import { RiAdminFill } from "react-icons/ri";
 
-
 const AllUsers = () => {
-  //   const { removeUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [isHR, isAdmin] = useAdmin();
   // console.log(isHR);
   const [salary, setSalary] = useState("");
 
+  // get users from user api
   const {
     data: users = [],
-    // isLoading: loading,
+    isLoading: loading,
     refetch,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users`);
       return res.data;
     },
   });
 
-  const {
-    data: salaries = [],
-    // isLoading: loading,
-  } = useQuery({
-    queryKey: ["salaries"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/salaries");
-      return res.data;
-    },
-  });
 
-  useEffect(() => {
-    salaries.map((salary) => setSalary(salary.status));
-  }, [salaries]);
-  console.log("Status: ", salary);
 
-  //   if(loading){
-  //     return <progress className="progress w-56 flex justify-center items-center mx-auto"></progress>
-  //   }
+  if (loading) {
+    return (
+      <progress className="progress w-56 flex justify-center items-center mx-auto"></progress>
+    );
+  }
 
   // Make Admin
   const handleMakeAdmin = (user) => {
@@ -196,35 +181,34 @@ const AllUsers = () => {
     });
   };
 
-
-
   return (
     <div className="border-2  font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between font-medium text-xl ">
           <h2 className=" mb-4">All Employees</h2>
           <h2>Total Employees: {users.length}</h2>
+          <h2></h2>
         </div>
-        <table id="" className="table-auto w-full">
-          <thead>
+        <table className="table w-full">
+          <thead className="border">
             <tr className="user-heading font-medium">
-              <th className={`${!isHR ? "hidden" : ""}`}>SL</th>
+              <th className={`border ${!isHR ? "hidden" : ""}`}>SL</th>
               <th
-                className={`${!isHR ? "hidden" : ""} ${
+                className={`border ${!isHR ? "hidden" : ""} ${
                   !isAdmin ? "hidden" : ""
                 } `}
               >
                 Photo
               </th>
-              <th className="w-56">Name</th>
-              <th className={`${!isAdmin ? "hidden" : ""}`}>Email</th>
-              <th className={`${!isHR ? "hidden" : ""}`}>Designation</th>
-              <th className={`${!isAdmin ? "hidden" : ""}`}>Bank A/C</th>
-              <th className="">Salary</th>
-              <th className={`${!isAdmin ? "hidden" : ""}`}>Verify</th>
-              <th className={`${!isHR ? "hidden" : ""}`}>Make Admin</th>
-              <th className={`${!isHR ? "hidden" : ""}`}>Make HR</th>
-              <th className="">Action</th>
+              <th className="border">Name</th>
+              <th className={`border `}>Email</th>
+              <th className={`border ${!isHR ? "hidden" : ""}`}>Designation</th>
+              <th className={`border ${!isAdmin ? "hidden" : ""}`}>Bank A/C</th>
+              <th className="border">Salary</th>
+              <th className={`border ${!isAdmin ? "hidden" : ""}`}>Verify</th>
+              <th className={`border ${!isHR ? "hidden" : ""}`}>Make Admin</th>
+              <th className={`border ${!isHR ? "hidden" : ""}`}>Make HR</th>
+              <th className="border">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -240,9 +224,13 @@ const AllUsers = () => {
                 >
                   <img src={user.image} alt="" />{" "}
                 </td>
-                <td className="border w-56">{user.name}</td>
-                <td className={`border ${!isAdmin ? "hidden" : ""}`}>{user.email}</td>
-                <td className={`border ${!isHR ? "hidden" : ""}`}>{user.designation}</td>
+                <td className="border w-fit">{user.name}</td>
+                <td className={`border `}>
+                  {user.email}
+                </td>
+                <td className={`border ${!isHR ? "hidden" : ""}`}>
+                  {user.designation}
+                </td>
                 <td className={`border ${!isAdmin ? "hidden" : ""}`}>
                   {user.bankAccount}
                 </td>
@@ -265,25 +253,21 @@ const AllUsers = () => {
                 </td>
 
                 {/* Make Admin */}
-                <td
-                  className={` border uppercase ${!isHR ? "hidden" : ""} `}
-                >
+                <td className={` border uppercase ${!isHR ? "hidden" : ""} `}>
                   {user.role === "admin" ? (
                     "Admin"
                   ) : (
                     <button
                       onClick={() => handleMakeAdmin(user)}
-                      className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg hover:shadow-blue-500/70 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block">
-
+                      className="middle none center hidden rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg hover:shadow-blue-500/70 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+                    >
                       <RiAdminFill className="text-xl"></RiAdminFill>
                     </button>
                   )}
                 </td>
 
                 {/* Make HR */}
-                <td
-                  className={`border uppercase ${!isHR ? "hidden" : ""} `}
-                >
+                <td className={`border uppercase ${!isHR ? "hidden" : ""} `}>
                   {user.role === "hr" ? (
                     "HR"
                   ) : (
@@ -296,6 +280,7 @@ const AllUsers = () => {
                   )}
                 </td>
 
+                {/* Delete User */}
                 <td
                   className={`border ${!isHR ? "hidden" : ""} ${
                     !isAdmin ? "hidden" : ""
@@ -311,13 +296,12 @@ const AllUsers = () => {
 
                 {/* Pay Button */}
                 <td className={`PAY border ${!isAdmin ? "hidden" : ""}`}>
-                  {salary.status === "paid" ? (
-                    <p>Paid</p>
-                  ) : (
-                    <>
-                      {user.status === "verified" ? (
-                        <>
-                          {/* <button
+               
+                  <div>
+                      <>
+                        {user.status === "verified" ? (
+                          <>
+                            {/* <button
                             onClick={() =>
                               document.getElementById("pay_modal").showModal()
                             }
@@ -327,22 +311,26 @@ const AllUsers = () => {
                           </button>
                           <Modal salary={user.salary} name={user.name}></Modal> */}
 
-                          <Link to={`/dashboard/paymentPage/${user._id}`}>
-                            <button className={`middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 text-sm uppercase text-white lg:inline-block font-workSans`} > <span>Pay</span>
-                            </button>
-                          </Link>
+                            <Link to={`/dashboard/paymentPage/${user._id}`}>
+                              <button
+                                className={`middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 text-sm uppercase text-white lg:inline-block font-workSans`}
+                              >
+                                {" "}
+                                <span>Pay</span>
+                              </button>
+                            </Link>
+                          </>
+                        ) : (
+                          <button
+                            disabled={true}
+                            className={`middle none center rounded-lg bg-gray-400 py-2 px-4 text-sm lg:inline-block font-workSans`}
+                          >
+                            <span>Pay</span>
+                          </button>
+                        )}
+                      </>
+                  </div>
 
-                        </>
-                      ) : (
-                        <button
-                          disabled={true}
-                          className={`middle none center rounded-lg bg-gray-400 py-2 px-4 text-sm lg:inline-block font-workSans`}
-                        >
-                          <span>Pay</span>
-                        </button>
-                      )}
-                    </>
-                  )}
                 </td>
 
                 {/* Make Fired */}
@@ -361,20 +349,27 @@ const AllUsers = () => {
                   )}
                 </td>
 
-                <Link to={`/dashboard/userDetails/${user._id}`}>
-                  <td className={`border ${!isAdmin ? "hidden" : ""}`}>
+                <td
+                  className={`border ${
+                    !isAdmin ? "hidden" : ""
+                  } flex flex-col gap-2`}
+                >
+                  <Link to={`/dashboard/userDetails/${user._id}`}>
                     <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gradient-to-tr from-[#0064A5] to-[#00C957] hover:text-white  ">
                       Details
                     </button>
-                  </td>
-                </Link>
+                  </Link>
+                  <Link to={`/dashboard/updateEmployee/${user._id}`}>
+                    <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gradient-to-tr from-[#0064A5] to-[#00C957] hover:text-white  ">
+                      Update
+                    </button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      <Helmet></Helmet>
     </div>
   );
 };

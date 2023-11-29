@@ -26,19 +26,20 @@ const WorkSheetListPage = () => {
     const search = task.tasksCategory.toLowerCase();
     const query = searchQuery.toLowerCase();
     const taskDate = task.date;
+    const taskHours = task.hours;
 
-    return search.includes(query) || taskDate.includes(query);
-
+    return search.includes(query) || 
+    taskDate.includes(query) || taskHours.includes(query);
     // && (selectedDate === "" || taskDate === selectedDate);
   });
 
   return (
     <div>
-      <div className="m-6 flex gap-4">
+      <div className="mt-6 lg:ml-8 flex gap-4">
         <input
-          className="p-2 border border-[#0064A5]"
+          className="p-2 border border-[#0064A5] font-workSans font-medium rounded"
           type="text"
-          placeholder="Search"
+          placeholder="Search any key"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

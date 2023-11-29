@@ -11,7 +11,7 @@ import useAdmin from "../../../Hooks/useAdmin";
 const TaskList = ({filteredTasks, refetch}) => {
 //   const { removeUser } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const[isHR, isAdmin] = useAdmin();
+  const[isHR] = useAdmin();
   console.log(isHR);
 
  
@@ -50,7 +50,7 @@ const handleDeleteTask = (task) => {
 
   return (
     <div className="font-workSans">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:w-[900px]">
         <div className="flex justify-between font-medium text-xl ">
           <h2 className=" mb-4">All Task List: ({filteredTasks.length})</h2>
         </div>

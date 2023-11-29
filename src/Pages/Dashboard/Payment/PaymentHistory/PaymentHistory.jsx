@@ -11,10 +11,10 @@ const PaymentHistory = () => {
   const [isHR, isAdmin] = useAdmin();
   // console.log(isHR);
 
+  //fetch from users api
   const {
     data: users = [],
     // isLoading: loading,
-    refetch,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -23,40 +23,18 @@ const PaymentHistory = () => {
     },
   });
 
-
-
-
-
-  // Make Admin
-  const handleMakeAdmin = (user) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You want to change your Role Admin now? ",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, I Want!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-          console.log(res.data);
-          if (res.data.modifiedCount > 0) {
-            refetch();
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: `${user.name} is an Admin Now!`,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
-      }
-    });
-  };
-
-
+  //fetch from salaries api
+  const {
+    data: salaries = [],
+    // isLoading: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ["salaries"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/salaries");
+      return res.data;
+    },
+  });
 
 
 
@@ -67,30 +45,22 @@ const PaymentHistory = () => {
           <h2 className=" mb-4 text-center">All Transaction</h2>
         </div>
         <table id="" className="table-auto w-full border">
-          <thead className="">
-            <tr className="user-heading font-medium">
-              <th className={`${!isHR ? "hidden" : ""}`}>SL</th>
-              <th
-                className={`${!isHR ? "hidden" : ""} ${
-                  !isAdmin ? "hidden" : ""
-                } `}
-              >
-                Photo
-              </th>
-              <th className="">Month</th>
-              <th className="">Amount</th>
-
-              <th className="">Salary</th>
-            
+          <thead className="border">
+            <tr className="user-heading font-medium border">
+              <th className="border">Month</th>
+              <th className="border">Salary Amount</th>
+              <th className="border">Transaction ID</th>
             </tr>
           </thead>
-          <tbody className="">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+          <tbody className="text-center border">
+            {
+              salaries.map(salary=> <tr key={salary._id}>
+                <td className="border">{salary.month}</td>
+                <td className="border">{salary.salary}</td>
+                <td className="border">{salary.transactionId}</td>
 
-            </tr>
+            </tr>)
+            }
           </tbody>
         </table>
       </div>

@@ -21,6 +21,7 @@ import EmployeeWorkSheet from "../Pages/Dashboard/EmployeeTask/EmployeeWorkSheet
 import PaymentPage from "../Pages/Dashboard/Payment/PaymentPage/PaymentPage";
 import TaskList from "../Pages/Dashboard/EmployeeTask/TaskList";
 import WorkSheetListPage from "../Pages/Dashboard/EmployeeTask/WorkSheetListPage";
+import UpdateEmployee from "../Pages/Dashboard/AddEmployee/UpdateEmployee";
 
 export const router = createBrowserRouter([
   {
@@ -89,6 +90,14 @@ export const router = createBrowserRouter([
             path: 'workSheetList',
             element: <WorkSheetListPage></WorkSheetListPage>
         },
+        {
+          path: 'addEmployee',
+          element: <AddEmployee></AddEmployee>
+        },
+        {
+          path: 'updateEmployee/:id',
+          element: <UpdateEmployee></UpdateEmployee>
+        },
 
         //Admin Routes
         {
@@ -97,14 +106,12 @@ export const router = createBrowserRouter([
         },
         {
             path: 'allUsers',
-            element: <AllUsers></AllUsers>
+            element: <AllUsers></AllUsers>,
+            loader: () => fetch('http://localhost:5000/usersCount')
         },
 
         //Common Routes
-        {
-          path: 'addEmployee',
-          element: <AddEmployee></AddEmployee>
-        },
+       
         // {
         //   path: 'employeeTask',
         //   element: <EmployeeTask></EmployeeTask>

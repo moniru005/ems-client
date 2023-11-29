@@ -3,7 +3,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 
@@ -11,6 +11,7 @@ const PaymentPage = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState(moment().year());
+  const navigate = useNavigate();
 
   const months = [
     "January",
@@ -26,7 +27,16 @@ const PaymentPage = () => {
     "November",
     "December",
   ];
+
+  //generate unique id for transaction
+  const generateTransactionId = () =>{
+    const timestamp = new Date().getTime();
+    const random = Math.floor(Math.random() * 10000);
+    
+    return `TXN_${timestamp}_${random}`;
+  }
   
+  // fetch from users api using tans-tack query
   const {
     data: users = [],
     // isLoading: loading,
@@ -39,10 +49,12 @@ const PaymentPage = () => {
     },
   });
 
+  //filtered to match with user id
   const {id} = useParams();
   const findUser = users.find(user => user._id === id);
   console.log(findUser);
 
+  //create dynamic custom year
   const startYear = 2022;
   const endYear = moment().year();
   const years = [];
@@ -53,6 +65,7 @@ const PaymentPage = () => {
     setSelectedYear(parseInt(e.target.value, 10));
   };
 
+  //create dynamic custom months from array of months 
   const handleMonthChange = (e) => {
     setSelectedMonth(e.target.value);
   };
@@ -63,6 +76,7 @@ const PaymentPage = () => {
     const year = selectedYear;
 
     const salaryInfo = {
+      transactionId: generateTransactionId(),
       name: findUser.name,
       salary: findUser.salary,
       month: month,
@@ -82,6 +96,7 @@ const PaymentPage = () => {
           showConfirmButton: false,
           timer: 2500,
         });
+        navigate('/dashboard/allUsers')
         payModal.close();
       }
     });
