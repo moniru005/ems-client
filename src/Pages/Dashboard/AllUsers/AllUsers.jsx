@@ -101,7 +101,7 @@ const AllUsers = () => {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: `${user.name} is an Admin Now!`,
+              title: `${user.name} is an HR Now!`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -317,7 +317,7 @@ const AllUsers = () => {
                     <>
                       {user.status === "verified" ? (
                         <>
-                          <button
+                          {/* <button
                             onClick={() =>
                               document.getElementById("pay_modal").showModal()
                             }
@@ -325,7 +325,13 @@ const AllUsers = () => {
                           >
                             <span>Pay</span>
                           </button>
-                          <Modal salary={user.salary} name={user.name}></Modal>
+                          <Modal salary={user.salary} name={user.name}></Modal> */}
+
+                          <Link to={`/dashboard/paymentPage/${user._id}`}>
+                            <button className={`middle none center rounded-lg bg-gradient-to-tr from-[#0064A5] to-[#00C957] py-2 px-4 text-sm uppercase text-white lg:inline-block font-workSans`} > <span>Pay</span>
+                            </button>
+                          </Link>
+
                         </>
                       ) : (
                         <button
@@ -340,7 +346,7 @@ const AllUsers = () => {
                 </td>
 
                 {/* Make Fired */}
-                <td className={`border uppercase `}>
+                <td className={`border uppercase ${!isHR ? "hidden" : ""}`}>
                   {user.status === "Fired" ? (
                     <p className="font-semibold flex justify-center items-center text-red-600">
                       Fired

@@ -87,7 +87,7 @@ const EmployeeWorkSheet = () => {
               <input
                 className="btn w-full mt-3 bg-[#0064A5] hover:bg-[#207fbe]  text-white"
                 type="submit"
-                value="Add Task"
+                value="Save Task"
               />
             </form>
           </div>

@@ -5,26 +5,16 @@ import { FaTrashAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAdmin from "../../../Hooks/useAdmin";
-import { useQuery } from "@tanstack/react-query";
 
 
-const TaskList = () => {
+
+const TaskList = ({filteredTasks, refetch}) => {
 //   const { removeUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const[isHR, isAdmin] = useAdmin();
   console.log(isHR);
 
-  const {
-    data: tasks = [],
-    // isLoading: loading,
-    refetch,
-  } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/tasks");
-      return res.data;
-    },
-  });
+ 
 
 
 // User Delete   
@@ -55,29 +45,27 @@ const handleDeleteTask = (task) => {
       });
   };
 
-
-
-
+  
 
 
   return (
-    <div className="border-2  font-workSans">
+    <div className="font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between font-medium text-xl ">
-          <h2 className=" mb-4">All Task List: ({tasks.length})</h2>
+          <h2 className=" mb-4">All Task List: ({filteredTasks.length})</h2>
         </div>
-        <table id="" className="table-auto w-full">
-          <thead>
+        <table id="" className="table-auto w-full border">
+          <thead className="border">
             <tr className="user-heading font-medium">
               <th className={`border`}>SL</th>
-              <th className="w-56">Task</th>
-              <th className="">Hours</th>
-              <th className="">Date</th>
-              <th className="">Action</th>
+              <th className="w-56 border">Task</th>
+              <th className="border">Hours</th>
+              <th className="border">Date</th>
+              <th className="border">Action</th>
             </tr>
           </thead>
           <tbody>
-            {tasks?.map((task, index) => (
+            {filteredTasks?.map((task, index) => (
               <tr key={task._id} className="user-body text-center">
                 <td className={`border`}>{index + 1}</td>
                 <td className="border capitalize">{task.tasksCategory}</td>
