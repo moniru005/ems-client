@@ -5,16 +5,41 @@ import { FaTrashAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAdmin from "../../../Hooks/useAdmin";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../Components/Loading/Loading";
+import { useState } from "react";
 
 
+const TaskList = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  // const [selectedDate, setSelectedDate] = useState("");
 
-const TaskList = ({filteredTasks, refetch, searchQuery, setSearchQuery}) => {
-//   const { removeUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const[isHR] = useAdmin();
   console.log(isHR);
-
  
+
+  //fetch Task
+  const { data: tasks = [], isLoading: loading, refetch, } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/tasks");
+      return res.data;
+    },
+  });
+
+
+  //Search Filter
+  const filteredTasks = tasks.filter((task) => {
+    const query = searchQuery.toLowerCase();
+    const search = task.tasksCategory.toLowerCase();
+    const taskDate = task.date;
+    const taskHours = task.hours;
+
+    return search.includes(query) || 
+    taskDate.includes(query) || taskHours.includes(query);
+    // && (selectedDate === "" || taskDate === selectedDate);
+  });
 
 
 // User Delete   
@@ -45,9 +70,12 @@ const handleDeleteTask = (task) => {
       });
   };
 
+  //Loading
+  if(loading){
+    <Loading></Loading>
+  }
+
   
-
-
   return (
     <div className="font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:w-[900px]">

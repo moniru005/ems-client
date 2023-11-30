@@ -69,35 +69,35 @@ const AdminHome = () => {
 
       <div>
         <div className="grid grid-cols-2 lg:grid-cols-4  gap-1  mt-10 font-workSans">
-          <div className="stat gap-2 text-center bg-gradient-to-r from-white to-green-500 rounded-lg">
-            <div className="stat-title text-xl font-semibold text-gray-800">
+          <div className="w-48 h-24 pt-24px pt-2 gap-2 text-center bg-gradient-to-r from-white to-green-500 rounded-lg">
+            <div className="p-0  text-xl font-semibold text-gray-800">
               Employee
             </div>
-            <div className="stat-value text-6xl font-semibold">
+            <div className="text-5xl font-semibold ">
               {stats?.users}
             </div>
           </div>
 
-          <div className="stat gap-2 text-center bg-gradient-to-r from-gray-100 to-purple-500 rounded-lg">
-            <div className="stat-title text-xl font-semibold text-gray-800">
+          <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-purple-500 rounded-lg">
+            <div className=" text-xl font-semibold text-gray-800">
               Tasks
             </div>
-            <div className="stat-value text-6xl font-semibold">0</div>
+            <div className="text-5xl font-semibold">0</div>
           </div>
 
-          <div className="stat gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-orange-300 rounded-lg">
-            <div className="stat-title text-xl font-semibold text-gray-800">
+          <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-orange-300 rounded-lg">
+            <div className=" text-xl font-semibold text-gray-800">
               Employee
             </div>
-            <div className="stat-value text-6xl font-semibold">0</div>
+            <div className="text-5xl font-semibold">0</div>
           </div>
 
-          <div className="stat gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-purple-500 rounded-lg">
-            <div className="stat-title text-xl font-semibold text-gray-800">
+          <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-purple-500 rounded-lg">
+            <div className=" text-xl font-semibold text-gray-800">
               {" "}
               Paid
             </div>
-            <div className="stat-value text-6xl font-semibold">0</div>
+            <div className="text-5xl font-semibold">0</div>
           </div>
         </div>
       </div>
@@ -125,7 +125,6 @@ const AdminHome = () => {
             </Bar>
           </BarChart>
         </div>
-        
       </div>
     </div>
   );
