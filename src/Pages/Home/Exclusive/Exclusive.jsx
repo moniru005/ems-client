@@ -21,9 +21,7 @@ const Exclusive = () => {
               Manage Employees Data
               </h5>
               <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-                The place is close to Barceloneta Beach and bus stop just 2 min
-                by walk and near to where you can enjoy the main night life in
-                Barcelona.
+              Manage employee data including contact information, employment records and performance metrics to ensure accurate HR administration.
               </p>
             </div>
           </div>
@@ -40,9 +38,7 @@ const Exclusive = () => {
               Perfect Payroll
               </h5>
               <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-                The place is close to Barceloneta Beach and bus stop just 2 min
-                by walk and near to where you can enjoy the main night life in
-                Barcelona.
+              Payroll is the process of paying employees for their work, including calculating taxes and deductions. Perfect payroll ensures accurate, timely payments with minimal effort.
               </p>
             </div>
           </div>
@@ -66,9 +62,7 @@ const Exclusive = () => {
               Unique HRM
               </h5>
               <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-                The place is close to Barceloneta Beach and bus stop just 2 min
-                by walk and near to where you can enjoy the main night life in
-                Barcelona.
+              Unique HRM is the practice of managing human resources in a way that maximizes each employee’s potential and contributes to achieving organizational goals.
               </p>
             </div>
           </div>
@@ -85,9 +79,7 @@ const Exclusive = () => {
               Accurate Accounting
               </h5>
               <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-                The place is close to Barceloneta Beach and bus stop just 2 min
-                by walk and near to where you can enjoy the main night life in
-                Barcelona.
+              Accurate accounting is the process of recording, classifying and summarizing financial transactions in an organized manner to ensure accuracy.
               </p>
             </div>
           </div>

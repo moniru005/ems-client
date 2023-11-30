@@ -28,12 +28,12 @@ const Testimonials = () => {
   }
 
   return (
-    <section className="mt-20 flex flex-col mx-auto  ">
+    <section className="mt-20 hidden lg:flex flex-col mx-auto ">
       <h2 className="lg:text-4xl text-xl font-semibold text-[#0064A5] mb-6 text-center pt-4">Testimonials</h2>
 
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper  w-[80%]">
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper  lg:w-[80%]">
         {reviews.map((review) => (
-          <SwiperSlide key={review._id}>
+          <SwiperSlide key={review._id} className="">
             <div className="flex flex-col items-center mx-24 my-16">
               <Rating
                 style={{ maxWidth: 180 }}
