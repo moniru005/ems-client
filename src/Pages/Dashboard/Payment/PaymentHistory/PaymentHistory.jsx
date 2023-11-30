@@ -41,7 +41,16 @@ const PaymentHistory = () => {
   }
 
   return (
-    <div className="border-2  font-workSans w-[900px]">
+    <div className="border  rounded-t-md font-workSans w-[900px]">
+      <div className="border-b-2  mb-4 rounded-t-md py-4 bg-gradient-to-r from-green-400 to-blue-500 w-full">
+        <h3 className="text-3xl text-white flex flex-col text-center">
+          <span className="">Payment History</span>
+        </h3>
+        <p className="text-center">
+              <small>All employees payment history list are here with their transaction ID.</small>
+            </p>
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center font-medium mb-4 ">
           <h2 className="text-center text-xl ">All Transaction ({filteredData.length})</h2>
@@ -55,9 +64,10 @@ const PaymentHistory = () => {
             />
           </div>
         </div>
-        <table id="" className="table-auto w-full border">
-          <thead className="border">
+        <table className="table table-auto w-full border">
+          <thead className="border text-center">
             <tr className="user-heading font-medium border">
+              <th className="border">Name</th>
               <th className="border">Month</th>
               <th className="border">Salary Amount</th>
               <th className="border">Transaction ID</th>
@@ -66,6 +76,7 @@ const PaymentHistory = () => {
           <tbody className="text-center border">
             {
               filteredData.map(salary=> <tr key={salary._id}>
+                <td className="border">{salary.name}</td>
                 <td className="border">{salary.month}</td>
                 <td className="border">{salary.salary}</td>
                 <td className="border">{salary.transactionId}</td>

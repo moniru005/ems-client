@@ -15,14 +15,11 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
 import UserDetails from "../Pages/Dashboard/AllUsers/UserDetails";
 import AddEmployee from "../Pages/Dashboard/AddEmployee/AddEmployee";
-import EmployeeTask from "../Pages/Dashboard/EmployeeTask/EmployeeTask";
 import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
 import EmployeeWorkSheet from "../Pages/Dashboard/EmployeeTask/EmployeeWorkSheet";
 import PaymentPage from "../Pages/Dashboard/Payment/PaymentPage/PaymentPage";
-import TaskList from "../Pages/Dashboard/EmployeeTask/TaskList";
 import WorkSheetListPage from "../Pages/Dashboard/EmployeeTask/WorkSheetListPage";
 import UpdateEmployee from "../Pages/Dashboard/AddEmployee/UpdateEmployee";
-import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -109,13 +106,6 @@ export const router = createBrowserRouter([
             path: 'allUsers',
             element: <PrivateRoute><AllUsers></AllUsers></PrivateRoute>
         },
-
-        //Common Routes
-       
-        // {
-        //   path: 'employeeTask',
-        //   element: <EmployeeTask></EmployeeTask>
-        // },
         {
           path: 'employeeWorkSheet',
           element: <EmployeeWorkSheet></EmployeeWorkSheet>

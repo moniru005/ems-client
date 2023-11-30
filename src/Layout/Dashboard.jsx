@@ -11,8 +11,8 @@ import { RingLoader } from 'react-spinners';
 const Dashboard = () => {
   const [isAdmin, isHR, isAdminAndHRLoading] = useAdmin();
 
+  //Dashboard Menu
   let menuComponent;
-
   if(isAdminAndHRLoading){
     menuComponent = <RingLoader color="#36d7b7"/>;
   }
@@ -26,6 +26,9 @@ const Dashboard = () => {
     menuComponent = <EmployeeMenu></EmployeeMenu>;
   }
 
+ 
+
+
   return (
     <div className="flex">
       <Helmet>
@@ -36,7 +39,9 @@ const Dashboard = () => {
       <div className="w-3/12">
         <div className="text-md font-workSans flex flex-col lg:flex-row gap-2 p-4 ">
           <ul className="sidebar flex flex-col gap-2 font-medium w-full ">
-            { menuComponent }
+         
+          {menuComponent}
+          
           </ul>
         </div>
       </div>

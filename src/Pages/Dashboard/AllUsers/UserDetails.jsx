@@ -8,13 +8,24 @@ import {
 import useDBUsers from "../../../Hooks/useDBUsers";
 import { useParams } from "react-router-dom";
 import UserStats from "./UserStats";
+import useSalaries from "../../../Hooks/useSalary";
 
 const UserDetails = () => {
   const [users] = useDBUsers();
   const { id } = useParams();
+  const { email } = useParams();
+  const [salaries] = useSalaries();
 
   const findUser = users.find((user) => user._id === id);
   console.log(findUser);
+
+  const userEmail = findUser.email;
+  console.log('userDetails Email: ', userEmail); 
+
+  const findUserSalary = salaries.find((salary) => salary.email === email);
+  console.log('findUserSalary', findUserSalary);
+ 
+
 
   return (
     <div className="flex items-start justify-evenly gap-12">

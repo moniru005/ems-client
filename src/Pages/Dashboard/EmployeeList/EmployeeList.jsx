@@ -4,8 +4,9 @@ import useDBUsers from "../../../Hooks/useDBUsers";
 const EmployeeList = () => {
     const [users] = useDBUsers();
     return (
-        <div className="border-2  font-workSans">
+      <div className="border-2  font-workSans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
         <h2 className="text-2xl font-bold mb-4">All Users</h2>
         <table id="" className="table-auto w-full">
           <thead>

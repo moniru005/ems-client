@@ -198,8 +198,18 @@ const filteredUsers = users.filter((user) => {
   };
 
   return (
-    <div className="border-2  font-workSans">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="border rounded-t-md font-workSans">
+
+      <div className="border-b-2  mb-4 rounded-t-md py-4 bg-gradient-to-r from-green-400 to-blue-500 w-full">
+        <h3 className="text-3xl text-white flex flex-col text-center">
+          <span className="">Employees List</span>
+        </h3>
+        <p className="text-center">
+              <small>All are employees list are here, including Admin and HR</small>
+            </p>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">     
         <div className="flex items-center font-medium mb-4">
           <h2 className=" text-xl ">All Employees ({users.length})</h2>
           <div className=" lg:ml-8 flex gap-4">

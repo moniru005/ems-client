@@ -79,20 +79,20 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full border rounded-t-md">
       <Helmet>
         <title>Add Employee | EMS</title>
       </Helmet>
-      <div className=" mb-4 flex flex-col lg:flex-row justify-center items-center font-workSans w-full">
-        <div className=" rounded-lg p-6">
-          <div className="mb-8">
-            <h2 className="text-2xl text-center font-semibold text-balck">
-              Add Employee
-            </h2>
-            <p className="text-center">
+      <div className=" mb-4 flex flex-col justify-center items-center font-workSans w-full">
+      <div className="border-b-2  mb-4 rounded-t-md py-4 bg-gradient-to-r from-green-400 to-blue-500 w-full">
+        <h3 className="text-3xl text-white flex flex-col text-center">
+          <span className="">Add Employee</span>
+        </h3>
+        <p className="text-center">
               <small>Add the employee details using in this form</small>
             </p>
-          </div>
+      </div>
+        <div className=" rounded-lg p-6">
           {/* form */}
           <div className="w-[800px]">
             <form
@@ -110,7 +110,7 @@ const AddEmployee = () => {
                     name="name"
                     placeholder="Name"
                   />
-                  {errors.name && (
+                  {errors?.name && (
                     <span className="text-red-100">
                       Your Full Name is Required
                     </span>

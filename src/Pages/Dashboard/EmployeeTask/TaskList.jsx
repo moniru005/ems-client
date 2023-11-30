@@ -77,11 +77,11 @@ const handleDeleteTask = (task) => {
 
   
   return (
-    <div className="font-workSans">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:w-[900px]">
-        <div className="flex items-center font-medium mb-6">
-          <h2 className="text-xl">All Task List: ({filteredTasks.length})</h2>
-          <div className=" lg:ml-8 flex gap-4">
+    <div className="font-workSans w-full ">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div className="flex justify-between items-center font-medium mb-6 w-full">
+          <h2 className="text-xl text-start w-full">All Task List: ({filteredTasks.length})</h2>
+          <div className=" lg:ml-8 flex gap-4 ">
             <input
               className="p-2 border border-[#8e8e8e] font-workSans font-medium rounded-lg"
               type="text"

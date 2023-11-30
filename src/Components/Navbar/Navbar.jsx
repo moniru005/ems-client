@@ -4,11 +4,12 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../Navbar/Navbar.css";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import Loading from "../Loading/Loading";
 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {user, logOut} = useAuth();
+  const {user, logOut, loading} = useAuth();
   const navigate = useNavigate();
 
 
@@ -29,6 +30,10 @@ const Navbar = () => {
         console.log(error.message);
       });
   };
+
+  if(loading){
+    <Loading></Loading>
+  }
 
   const navbar = (
     <>

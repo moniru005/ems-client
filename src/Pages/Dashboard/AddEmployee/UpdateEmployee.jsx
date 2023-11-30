@@ -1,10 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useValidatePhone from "../../../Hooks/useValidatePhone";
 import { useQuery } from "@tanstack/react-query";
@@ -14,7 +11,6 @@ const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const UpdateEmployee = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { validatePhoneNumber } = useValidatePhone();
   const {
@@ -122,7 +118,7 @@ const UpdateEmployee = () => {
                     type="text"
                     name="name"
                     placeholder="Name"
-                    defaultValue={findUser.name}
+                    defaultValue={findUser?.name}
                   />
                   {errors.name && (
                     <span className="text-red-100">
@@ -141,7 +137,7 @@ const UpdateEmployee = () => {
                     className="p-2 rounded border border-[#00C957] w-full"
                     type="text"
                     placeholder="Designation"
-                    defaultValue={findUser.designation}
+                    defaultValue={findUser?.designation}
                   />
                   {errors.name && (
                     <span className="text-red-100">
@@ -163,7 +159,7 @@ const UpdateEmployee = () => {
                     className="p-2 rounded border border-[#00C957] w-full"
                     type="number"
                     placeholder="Bank Account No."
-                    defaultValue={findUser.bankAccount}
+                    defaultValue={findUser?.bankAccount}
                   />
 
                   {errors.name && (
@@ -179,7 +175,7 @@ const UpdateEmployee = () => {
                     className="p-2 rounded border border-[#00C957] w-full"
                     type="number"
                     placeholder="Salary"
-                    defaultValue={findUser.salary}
+                    defaultValue={findUser?.salary}
                   />
                   {errors.name && (
                     <span className="text-red-100">
@@ -198,7 +194,7 @@ const UpdateEmployee = () => {
                     className="p-2 rounded border border-[#00C957] w-full"
                     type="number"
                     placeholder="Phone"
-                    defaultValue={findUser.phone}
+                    defaultValue={findUser?.phone}
                   />
                   {errors.phone && (
                     <span className="text-red-200">{errors.phone.message}</span>
@@ -214,7 +210,7 @@ const UpdateEmployee = () => {
                     type="text"
                     name="company"
                     placeholder="Company"
-                    defaultValue={findUser.company}
+                    defaultValue={findUser?.company}
                   />
                   {errors.email?.type === "required" && (
                     <span className="text-red-100">Your Email is required</span>
@@ -232,7 +228,7 @@ const UpdateEmployee = () => {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    defaultValue={findUser.email}
+                    defaultValue={findUser?.email}
                   />
                   {errors.email?.type === "required" && (
                     <span className="text-red-100">Your Email is required</span>
@@ -243,7 +239,7 @@ const UpdateEmployee = () => {
               <div className="w-1/2">
                 <select
                   id="role"
-                  defaultValue={findUser.role}
+                  defaultValue={findUser?.role}
                   {...register("role", { required: "Please select your Role" })}
                   className="select select-bordered w-full p-2 rounded"
                 >

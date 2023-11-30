@@ -2,12 +2,28 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  PieChart,
+  Pie,
+  Legend,
+} from "recharts";
+
+import useSalaries from "../../../Hooks/useSalary";
+import useTask from "../../../Hooks/useTask";
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const AdminHome = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [salaries] = useSalaries();
+  const [tasks] = useTask();
 
   const { data: stats = {} } = useQuery({
     queryKey: ["admin-stats"],
@@ -17,48 +33,36 @@ const AdminHome = () => {
     },
   });
 
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-  ];
-  const getPath = (x, y, width, height) => {
-    return `M${x},${y + height}C${x + width / 3},${y + height} ${
-      x + width / 2
-    },${y + height / 3}
-    ${x + width / 2}, ${y}
-    C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${
-      x + width
-    }, ${y + height}
-    Z`;
+  // custom shape pie chart
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
   };
 
-  const TriangleBar = (props) => {
-    const { fill, x, y, width, height } = props;
-
-    return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
-  };
+  const pieChartData = tasks.map((data) => {
+    return { name: data.tasksCategory, value: parseInt(data.hours) };
+  });
 
   return (
     <div className="w-full">
@@ -73,41 +77,41 @@ const AdminHome = () => {
             <div className="p-0  text-xl font-semibold text-gray-800">
               Employee
             </div>
-            <div className="text-5xl font-semibold ">
-              {stats?.users}
-            </div>
+            <div className="text-4xl pt-2 font-semibold ">{stats?.users}</div>
           </div>
 
           <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-purple-500 rounded-lg">
-            <div className=" text-xl font-semibold text-gray-800">
-              Tasks
+            <div className=" text-xl font-semibold text-gray-800">Tasks</div>
+            <div className="text-4xl pt-2 font-semibold">
+              {stats?.totalTask}
             </div>
-            <div className="text-5xl font-semibold">0</div>
           </div>
 
           <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-orange-300 rounded-lg">
             <div className=" text-xl font-semibold text-gray-800">
-              Employee
+              Subscribed
             </div>
-            <div className="text-5xl font-semibold">0</div>
+            <div className="text-4xl pt-2 font-semibold">
+              {stats?.totalContacts}
+            </div>
           </div>
 
           <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-purple-500 rounded-lg">
-            <div className=" text-xl font-semibold text-gray-800">
-              {" "}
-              Paid
+            <div className=" text-xl font-semibold text-gray-800">Paid</div>
+            <div className="text-4xl pt-2 font-semibold">
+              {stats?.PaidSalary}
             </div>
-            <div className="text-5xl font-semibold">0</div>
           </div>
         </div>
       </div>
-
-      <div>
+      
+      {/* BarChart */}
+      <div className="flex">
         <div className="mt-12">
           <BarChart
             width={500}
             height={300}
-            data={data}
+            data={salaries}
             margin={{
               top: 20,
               right: 50,
@@ -116,16 +120,41 @@ const AdminHome = () => {
             }}
           >
             <CartesianGrid strokeDasharray="2 2" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="month" />
             <YAxis />
-            <Bar dataKey="uv" fill="#8884d8" label={{ position: "top" }}>
-              {data.map((entry, index) => (
+            <Bar dataKey="salary" fill="#8884d8" label={{ position: "top" }}>
+              {salaries?.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={colors[index % 20]} />
               ))}
             </Bar>
           </BarChart>
         </div>
+        
+        {/* PieChart */}
+        <div className="w-1/2">
+          <PieChart width={300} height={285}>
+            <Pie
+              data={pieChartData}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {pieChartData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Legend></Legend>
+          </PieChart>
+        </div>
       </div>
+      
     </div>
   );
 };

@@ -37,34 +37,31 @@ const EmployeeWorkSheet = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="border rounded-t-md w-full mb-4 flex flex-col lg:flex-row font-workSans ">
       <Helmet>
         <title>Employee Task | EMS</title>
       </Helmet>
 
-      <div className=" mb-4 flex flex-col lg:flex-row justify-center items-center font-workSans w-full">
-        <div className=" rounded-lg bg-[#e7eff5] p-6">
-          <div className="mb-8">
-            <h2 className="text-2xl text-center font-semibold text-black">
-              Employee Task
-            </h2>
-            <p className="text-center">
-              <small>
-                Employee should complete the task details using in this form
-              </small>
-            </p>
-          </div>
-
+      <div className=" w-full ">
+      <div className="border-b-2  mb-4 rounded-t-md py-4 bg-gradient-to-r from-green-400 to-blue-500 w-full">
+          <h3 className="text-3xl text-white flex flex-col text-center">
+            <span className="">Employee Task</span>
+          </h3>
+          <p className="text-center">
+            <small>Employee should complete the task details using in this form</small>
+          </p>
+        </div>
+        <div className=" rounded-lg p-6">
           {/* form */}
-          <div className="w-[800px]">
+          <div className=" w-full">
             <form onSubmit={onSubmit}>
                 <div className="flex gap-2 w-full text-center mb-2 font-medium">
-                    <label className="w-4/12">Task</label>
-                    <label className="w-4/12">Hours</label>
-                    <label className="w-4/12">Date</label>
+                    <label className="w-4/12 ">Task</label>
+                    <label className="w-4/12 ">Hours</label>
+                    <label className="w-4/12 ">Date</label>
                 </div>
               <div className="flex gap-2 w-full">
-                <select className="p-4 w-4/12" name="tasksCategory" id="">
+                <select className="p-4 w-4/12 rounded-lg border-gray-400 bg-white border" name="tasksCategory" id="">
                   <option disabled>Select Task</option>
                   <option value="sales">Sales</option>
                   <option value="support">Support</option>
@@ -72,20 +69,20 @@ const EmployeeWorkSheet = () => {
                   <option value="paperWork">Paper Work</option>
                 </select>
                 <input
-                  className="w-4/12 p-4"
+                  className="w-4/12 p-4 rounded-lg border-gray-400 bg-white border"
                   type="number"
                   name="hours"
                   placeholder="Hours"
                 />
                 <input
-                  className="w-4/12 p-4"
+                  className="w-4/12 p-4 rounded-lg border-gray-400 bg-white border"
                   type="date"
                   name="date"
                   placeholder="Date"
                 />
               </div>
               <input
-                className="btn w-full mt-3 bg-[#0064A5] hover:bg-[#207fbe]  text-white"
+                className="btn w-full mt-6 bg-[#0064A5] hover:bg-[#207fbe]  text-white"
                 type="submit"
                 value="Save Task"
               />
