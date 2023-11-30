@@ -98,8 +98,8 @@ const AdminHome = () => {
 
           <div className="w-48 h-24 pt-24px pt-2  gap-2 text-center bg-gradient-to-r from-gray-100 to-deep-purple-500 rounded-lg">
             <div className=" text-xl font-semibold text-gray-800">Paid</div>
-            <div className="text-4xl pt-2 font-semibold">
-              {stats?.PaidSalary}
+            <div className="text-4xl pt-2 font-semibold text-gray-900">
+              {'$'+stats?.PaidSalary}
             </div>
           </div>
         </div>

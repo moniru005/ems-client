@@ -14,7 +14,7 @@ const ProductSuite = () => {
       <div>
         <img
           className="w-[80%] mx-auto rounded-xl"
-          src="https://i.ibb.co/6gY0HcM/employee-dash-1.jpg"
+          src="https://i.ibb.co/H7wScRn/admin-panel.png"
           alt=""
         />
       </div>

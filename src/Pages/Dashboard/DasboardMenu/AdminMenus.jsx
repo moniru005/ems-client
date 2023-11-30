@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { FaUserCheck, FaUsers } from "react-icons/fa";
 import { BiTask } from "react-icons/bi";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { GrUserAdmin } from "react-icons/gr";
 const AdminMenus = () => {
   return (
     <>
@@ -11,10 +12,10 @@ const AdminMenus = () => {
           Admin Dashboard
         </h2>
       </Link>
-      {/* <NavLink to="/dashboard/adminHome" className={`flex items-center gap-2`}>
+      <NavLink to="/dashboard/adminHome" className={`flex items-center gap-2`}>
         <GrUserAdmin className="text-green-400 text-2xl"></GrUserAdmin>
-        <button className="w-full">Admin</button>
-      </NavLink> */}
+        <button className="w-full">Admin Home</button>
+      </NavLink>
       <NavLink
         to="/dashboard/addEmployee"
         className={`flex items-center gap-2`}

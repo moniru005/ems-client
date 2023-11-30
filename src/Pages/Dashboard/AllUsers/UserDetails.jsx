@@ -19,7 +19,7 @@ const UserDetails = () => {
   const findUser = users.find((user) => user._id === id);
   console.log(findUser);
 
-  const userEmail = findUser.email;
+  const userEmail = findUser?.email;
   console.log('userDetails Email: ', userEmail); 
 
   const findUserSalary = salaries.find((salary) => salary.email === email);
@@ -40,13 +40,13 @@ const UserDetails = () => {
           >
             <img
               className="w-72 h-72"
-              src={findUser.image}
+              src={findUser?.image}
               alt="Employee Photo"
             />
           </CardHeader>
           <CardBody>
             <Typography variant="h4" color="blue-gray" className="text-center">
-              {findUser.name}
+              {findUser?.name}
             </Typography>
             <div className="">
             <Typography
@@ -54,24 +54,24 @@ const UserDetails = () => {
               color="gray"
               className="font-normal text-center"
             >
-              <small>{findUser.designation}</small>
+              <small>{findUser?.designation}</small>
             </Typography>
             <Typography
               variant="lead"
               color="gray"
               className="font-normal flex justify-center items-center gap-1"
             >
-                <span>Salary: </span> <span className="text-lg text-[#0064A5] font-semibold"> {'$ '+findUser.salary}</span>
+                <span>Salary: </span> <span className="text-lg text-[#0064A5] font-semibold"> {'$ '+findUser?.salary}</span>
             </Typography>
             </div>
           </CardBody>
           <CardFooter className="-mt-12 text-center">
             <Typography>
-              Email: {findUser.email}
+              Email: {findUser?.email}
             </Typography>
             
               <Typography>
-              {'Phone: '+findUser.phone}
+              {'Phone: '+findUser?.phone}
             </Typography>
            
           </CardFooter>

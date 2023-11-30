@@ -92,7 +92,7 @@ const HrHome = () => {
             <div className=" text-xl font-semibold text-gray-800">
              Paid
             </div>
-            <div className="text-4xl pt-2 font-semibold">{stats?.PaidSalary}</div>
+            <div className="text-4xl pt-2 font-semibold">{'$'+stats?.PaidSalary}</div>
           </div>
         </div>
       </div>
