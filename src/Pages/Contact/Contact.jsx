@@ -106,20 +106,20 @@ const Contact = () => {
                 Drop in our office
               </h1>
               <p className="text-gray-400">
-              If you would like to drop in and speak with us about your case, please call our office at (212) 545-2220. We are located in the heart of Manhattan, near Grand Central Station.
+              If you would like to drop in and speak with us about your case, please call our office at (+880) 1683988686. We are located in the heart of Manhattan, near Grand Central Station.
               </p>
 
-              <div className="flex my-4 w-2/3 lg:w-1/2">
-                <div className="flex flex-col">
-                  <i className="fas fa-map-marker-alt pt-2 pr-2" />
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="text-2xl">Main Office</h2>
+              
+              
+                <div className="flex flex-col w-full my-6 ">
+                  <h2 className="text-2xl py-2 ">Main Office</h2>
                   <p className="text-gray-400">
-                  11 East 44th Street Suite 819 New York, NY 10017
+                  Shahi Tower (2nd Floor), 
+                  <p>Nazir Ahmed Chy RD, </p>
+                  <p>Anderkilla, CTG, BD</p>
                   </p>
                 </div>
-              </div>
+              
 
               
             </div>
