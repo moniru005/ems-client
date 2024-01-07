@@ -105,8 +105,9 @@ const AdminHome = () => {
         </div>
       </div>
       
-      {/* BarChart */}
+      {/* BarChart and Piechart */}
       <div className="flex">
+        {/* BarChart */}
         <div className="mt-12">
           <BarChart
             width={500}

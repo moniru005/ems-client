@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
-import Contact from "../Pages/Contact/Contact";
+import Contact from "../Pages/Contact/Contact"; 
 import Dashboard from "../Layout/Dashboard";
 import Login from "../Auth/Login/Login";
 import Register from "../Auth/Register/Register";
@@ -20,6 +20,7 @@ import EmployeeWorkSheet from "../Pages/Dashboard/EmployeeTask/EmployeeWorkSheet
 import PaymentPage from "../Pages/Dashboard/Payment/PaymentPage/PaymentPage";
 import WorkSheetListPage from "../Pages/Dashboard/EmployeeTask/WorkSheetListPage";
 import UpdateEmployee from "../Pages/Dashboard/AddEmployee/UpdateEmployee";
+import EmployeeTask2 from "../Pages/Dashboard/EmployeeTask/EmployeeTask2";
 
 export const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ export const router = createBrowserRouter([
         {
           path: 'employeeWorkSheet',
           element: <EmployeeWorkSheet></EmployeeWorkSheet>
+        },
+        {
+          path: 'employeeTask2',
+          element: <EmployeeTask2></EmployeeTask2>
         },
        
     ]

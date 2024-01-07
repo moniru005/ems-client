@@ -9,7 +9,7 @@ import Loading from "../../../Components/Loading/Loading";
 import { useState } from "react";
 
 
-const TaskList = () => {
+const TaskList2 = () => {
   const [searchQuery, setSearchQuery] = useState("");
   // const [selectedDate, setSelectedDate] = useState("");
 
@@ -102,7 +102,9 @@ const handleDeleteTask = (task) => {
           <thead className="border">
             <tr className="user-heading font-medium">
               <th className={`border`}>SL</th>
+              <th className="w-56 border">Name</th>
               <th className="border">Task</th>
+              <th className="border">Department</th>
               <th className="border">Hours</th>
               <th className="border">Date</th>
               <th className="border">A</th>
@@ -112,9 +114,16 @@ const handleDeleteTask = (task) => {
             {filteredTasks?.map((task, index) => (
               <tr key={task._id} className="user-body text-center">
                 <td className={`border`}>{index + 1}</td>
+                <td className="border capitalize flex flex-col items-center">
+                    <img className="pt-2 rounded-badge w-12 h-12" src={task.image} alt="" />
+                    <p>{task.firstName}</p>
+                </td>
                 <td className="border capitalize">{task.taskTitle}</td>
+                <td className="border ">{task.taskDepartment}</td>
                 <td className="border ">{task.hours}</td>
                 <td className="border ">{task.date}</td>
+                
+                
                 
                 <td className={`border flex flex-col gap-2`}>
                   <button
@@ -140,4 +149,4 @@ const handleDeleteTask = (task) => {
   );
 };
 
-export default TaskList;
+export default TaskList2;
