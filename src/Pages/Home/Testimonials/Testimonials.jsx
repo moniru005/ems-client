@@ -10,6 +10,7 @@ import { Navigation } from "swiper/modules";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Components/Loading/Loading";
+import Title from "../../../Components/Title/Title";
 
 const Testimonials = () => {
   const axiosPublic = useAxiosPublic();
@@ -28,8 +29,8 @@ const Testimonials = () => {
   }
 
   return (
-    <section className="mt-20 hidden lg:flex flex-col mx-auto ">
-      <h2 className="lg:text-4xl text-xl font-semibold text-[#0064A5] mb-6 text-center pt-4">Testimonials</h2>
+    <section data-aos="fade-up" data-aos-offset="200" data-aos-duration="2000" className="mt-20 hidden lg:flex flex-col mx-auto bg-[url('./assets/images/abs-1.jpg')] bg-fixed bg-cover">
+      <Title heading="Testimonials" ></Title>
 
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper  lg:w-[80%]">
         {reviews.map((review) => (

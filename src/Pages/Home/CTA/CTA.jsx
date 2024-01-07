@@ -35,16 +35,17 @@ const CallToAction = () => {
   }
 
   return (
-    <div className="mt-16 font-workSans">
-      <div className="relative mt-12 font-workSans bg-[url('https://i.ibb.co/ZcJ3h1x/textured-1-2.jpg')] h-[350px] mx-auto flex justify-center rounded-lg">
+    <div data-aos="fade-up" data-aos-offset="200" data-aos-duration="2000" className="mt-16 font-workSans">
+      <div className="relative mt-12 font-workSans bg-gradient-to-r from-[#0C1632] to-[#0064A5] h-[350px] mx-auto flex justify-center ">
         
         <div className="lg:top-12 flex flex-col lg:flex-row  items-center justify-evenly mx-auto gap-12 w-full">
             
           <div className="lg:w-2/6 lg:space-y-3 w-full text-center">
-            <h2 className=" text-lg lg:text-[36px] text-[#0064A5] font-semibold">
-              We&apos;d love to walk you <br /> through the platform
+            <h2 className=" text-lg lg:text-[36px] text-white font-semibold">
+              <p>We&apos;d love to walk you</p> 
+              <p className="mt-3">through the platform</p>
             </h2>
-            <p className="w-96 text-sm">
+            <p className="w-96 text-sm text-white pt-3">
               Fill in the form and we&apos;ll schedule a free demo
             </p>
           </div>
@@ -54,22 +55,22 @@ const CallToAction = () => {
             <form onSubmit={handleForm} className="flex flex-col space-y-3 w-full">
               <input 
               className="p-2 rounded border border-[#cecfcf]" 
-              type="text" name="name" placeholder="Name" />
+              type="text" name="name" placeholder="Name" required />
 
               <input 
               className="p-2 rounded border border-[#cecfcf]" 
-              type="email" name="email" placeholder="Email" />
+              type="email" name="email" placeholder="Email" required />
 
               <input 
               className="p-2 rounded border border-[#cecfcf]" 
-              type="text" name="phone" placeholder="Phone" />
+              type="text" name="phone" placeholder="Phone" required />
 
               <input 
               className="p-2 rounded border border-[#cecfcf]" 
-              type="text" name="city" placeholder="City" />
+              type="text" name="city" placeholder="City" required />
 
               <input 
-              className="p-2 bg-[#0063a5ac] hover:bg-[#0064A5] text-white rounded cursor-pointer" 
+              className="p-2 bg-[#0C1632] hover:bg-[#13224d] text-white rounded cursor-pointer" 
               type="submit" value="Submit" />
 
             </form>

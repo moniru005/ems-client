@@ -2,7 +2,7 @@ import Title from "../../../Components/Title/Title";
 
 const ProductSuite = () => {
   return (
-    <div className="pb-16 font-workSans">
+    <div data-aos="fade-up" data-aos-offset="200" data-aos-duration="2000" className=" font-workSans">
       <div className="">
         <Title
           heading="Join an Attractive & Employee Management Service"

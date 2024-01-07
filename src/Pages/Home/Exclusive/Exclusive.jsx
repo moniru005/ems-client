@@ -2,7 +2,7 @@ import Title from "../../../Components/Title/Title";
 
 const Exclusive = () => {
   return (
-    <div className=" bg-[url('https://i.ibb.co/YtRN50W/textured-1-3.jpg')] bg-cover">
+    <div data-aos="fade-up" data-aos-offset="200" data-aos-duration="2000" className=" bg-[url('https://i.ibb.co/YtRN50W/textured-1-3.jpg')] bg-cover">
       <Title heading="Check Out Some of the Exclusive Services"></Title>
       
       <div className="z-20">

@@ -3,7 +3,7 @@ import image from '../../assets/images/benefits.jpg';
 
 const WhoCanUse = () => {
   return (
-    <div className="max-w-[1200px] mx-auto pb-16 font-workSans">
+    <div data-aos="fade-up" data-aos-offset="200" data-aos-duration="2000" className="max-w-[1200px] mx-auto pb-16 font-workSans">
       <div className="-mb-12 lg:mb-0">
         <Title
           heading="Who Can Use and Why?"
