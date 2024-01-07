@@ -5,6 +5,7 @@ import Exclusive from "./Exclusive/Exclusive";
 import Testimonials from "./Testimonials/Testimonials";
 import CallToAction from "./CTA/CTA";
 import WhoWeAre from "../../Components/About/WhoWeAre";
+import WhoCanUse from "../../Components/About/WhoCanUse";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <Helmet> <title>Home | EMS</title> </Helmet>
             <Banner></Banner>
             <WhoWeAre></WhoWeAre>
+            <WhoCanUse></WhoCanUse>
             <ProductSuite></ProductSuite>
             <Exclusive></Exclusive>
             <Testimonials></Testimonials>

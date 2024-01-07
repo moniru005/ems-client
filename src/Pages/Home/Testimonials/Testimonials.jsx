@@ -42,6 +42,7 @@ const Testimonials = () => {
               />
               <FaQuoteLeft className=" text-4xl mt-6" />
               <p className="py-8">{review.details}</p>
+              <img className="rounded-full w-32 h-32" src={review.image} alt="" />
               <h3 className="text-2xl text-[#0064A5]">{review.name}</h3>
             </div>
           </SwiperSlide>
