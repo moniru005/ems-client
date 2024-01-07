@@ -22,6 +22,7 @@ import WorkSheetListPage from "../Pages/Dashboard/EmployeeTask/WorkSheetListPage
 import UpdateEmployee from "../Pages/Dashboard/AddEmployee/UpdateEmployee";
 import EmployeeTask2 from "../Pages/Dashboard/EmployeeTask/EmployeeTask2";
 import Blog from "../Pages/Blog/Blog";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <Home></Home>,
+        element: <AboutUs></AboutUs>,
       },
       {
         path: "/blog",
